@@ -1,0 +1,86 @@
+{
+  "env": {
+    "browser": true,
+    "commonjs": true,
+    "es6": true,
+    "node": true
+  },
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "sourceType": "module",
+    "ecmaVersion": 2017,
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "plugins": ["react", "react-hooks", "@typescript-eslint", "prettier"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:prettier/recommended"
+  ],
+  "settings": {
+    "import/parser": {
+      "typescript-eslint-parser": [".ts", ".tsx"]
+    },
+    "import/resolver": {
+      "eslint-import-resolver-typescript": true,
+      "babel-module": {},
+      "node": {
+        "extensions": [".ts", ".tsx", ".js", ".jsx"]
+      }
+    },
+    "react": {
+      "pragma": "React",
+      "version": "detect"
+    }
+  },
+  "rules": {
+    // off: 0, warn: 1, error: 2  (cf. https://eslint.org/docs/rules/)
+    "indent": 0,
+    //    "space-before-function-paren": 2,
+    "no-mixed-spaces-and-tabs": 2,
+    "no-case-declarations": 0,
+    "quotes": [2, "single"],
+    "comma-spacing": [2, { "before": false, "after": true }],
+    "key-spacing": [2, { "beforeColon": false }],
+    "space-infix-ops": 2,
+    "prefer-const": 1,
+    "import/no-unresolved": 0,
+    "prettier/prettier": 2,
+    "for-direction": 2,
+    "no-undef": 0,
+    "no-console": 0,
+    "no-unused-vars": 0,
+    "no-dupe-args": 2,
+    "no-dupe-keys": 1,
+    "no-unreachable": 2,
+    "react/jsx-key": 2,
+    "react/jsx-no-undef": 1,
+    "react/jsx-uses-vars": 2,
+    "react/no-children-prop": 1,
+    "react/no-deprecated": 1,
+    "react/require-render-return": 2,
+    "react/no-direct-mutation-state": 2,
+    "react/prop-types": 0,
+    "react/display-name": 0,
+    "react/jsx-filename-extension": [
+      2,
+      { "extensions": [".ts", ".tsx"] }
+    ],
+    "react-hooks/rules-of-hooks": 1,
+    "react-hooks/exhaustive-deps": 1,
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "no-useless-catch": 0,
+    "no-empty-pattern": 0
+  },
+  "overrides": [
+    {
+      "files": ["**/*.tsx"],
+      "rules": {
+        "react/prop-types": "off"
+      }
+    }
+  ]
+}

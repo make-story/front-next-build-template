@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>User agent Test</title>
+</head>
+<body>
+<ul id="devices"></ul>
+<div id="is-videoinput">-</div>
+<div id="is-videopermission">-</div>
+<video id="videotest"></video>
+<script>
+// 카메라와 마이크 리스트
+const getEnumerateDevices = async () => {
+    let devices = [];
+
+    if(!navigator.mediaDevices || !navigator.mediaDevices.enumerateDevices) {
+        console.log("enumerateDevices()를 지원하지 않습니다.");
+        return devices;
+    }
+    
+    try {
+        devices = await navigator.mediaDevices.enumerateDevices();
+    }catch(err) {
+        console.log(err.name + ": " + err.message);
+    }
+
+    return devices;
+};
+
+// 비디오 장치 존재여부
+const getDevicesVideoInput = (devices = []) => { 
+    let isVideoInput = false;
+
+    for(let i = 0, max = devices.length; i < max; i++) {
+        const { kind, label, deviceId, } = devices[i];  
+        // kind : "videoinput", "audioinput" or "audiooutput"  
+        if(kind && kind.toLowerCase() === 'videoinput') {
+            isVideoInput = true;
+            break;
+        }
+    }
+
+    return isVideoInput;
+};
+
+// 비디오 장치 권한여부
+const getUserMediaPermission = async () => {
+    let stream = null;
+
+    try {
+        stream = await navigator.mediaDevices.getUserMedia({ video: true});
+    } catch(err) {
+        console.log(err.name + ": " + err.message);
+    }
+
+    return stream;
+};
+
+// 화면에 리스트 출력
+const setDevicesAppend = (devices = [], { selector = '#devices' } = {}) => {
+    try {
+        const $devices = document.querySelector(selector);
+        const $fragment = new DocumentFragment();
+        devices.forEach(function(device) {
+            const { kind, label, deviceId, } = device;
+            const message = `${kind || '-'} / ${label || '-'} / ${deviceId || '-'}`;
+            const $li = document.createElement('li'); // TODO: 상위태그가 ul 등 목록태그 여부 확인필요
+
+            $li.innerHTML = message;
+            $fragment.appendChild($li);
+        });
+        $devices && $fragment && $devices.appendChild($fragment);
+    }catch(err) {
+        console.log(err.name + ": " + err.message);
+    }
+};
+
+// 엘리먼트에 html 출력
+const setConditionElementText = (condition, { selector = '#is-videoinput', htmlTrue = '', htmlFalse = '' } = {}) => {
+    const $element = document.querySelector(selector);
+
+    if(!$element) {
+        return;
+    }
+    if(condition === true) {
+        $element.innerHTML = htmlTrue;
+    }else if(condition === false) {
+        $element.innerHTML = htmlFalse;
+    }
+};
+
+// 비디오 플레이
+const setVideoPlay = (stream, { selector = '#videotest' } = {}) => {
+    const $video =  document.querySelector(selector);
+    
+    if(stream && $video) {
+        $video.srcObject = stream;
+        $video.onloadedmetadata = (event) => $video.play();
+    }
+};
+
+(async () => {
+    const devices = await getEnumerateDevices();
+    const isVideoInput = getDevicesVideoInput(devices);
+
+    setDevicesAppend(devices);
+    setConditionElementText(isVideoInput, { selector: '#is-videoinput', htmlTrue: '카메라 있음', htmlFalse: '카메라 없음' });
+    console.log('devices', devices);
+    if(isVideoInput) {
+        const stream = await getUserMediaPermission(); // stream.active / stream.id
+        console.log('stream', stream);
+        setVideoPlay(stream);
+        setConditionElementText(Boolean(stream), { selector: '#is-videopermission', htmlTrue: '카메라 권한있음', htmlFalse: '카메라 권한없음' });
+    }
+})();
+</script>
+</body>
+</html>

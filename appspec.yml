@@ -1,0 +1,23 @@
+version: 0.0
+os: linux
+files:
+  - source: /
+    destination: /data/codedeploy
+
+permissions:
+  - object: /
+    pattern: "**"
+    owner: node
+    group: app
+    mode : 750
+
+hooks:
+  ApplicationStop:
+    - location: shell/stop.sh
+      timeout: 60
+  BeforeInstall:
+    - location: shell/delete.sh
+      timeout: 60
+  ApplicationStart:
+    - location: shell/start.sh
+      timeout: 60
