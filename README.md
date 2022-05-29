@@ -1,4 +1,8 @@
 # Next.js 개발환경
+`파일 의존성 동기화 중요!`  
+- yarn.lock 파일 중요  
+- package.json 의존성 파일 각각 설치 필요할 수 있음
+- npm-list.txt 파일 참고
 
 
 ## .env
