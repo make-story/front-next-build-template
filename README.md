@@ -1,4 +1,5 @@
 # Next.js 개발환경
+Node.js(웹서버) / Express(미들웨어) / Next.js(React 프레임워크) / React(UI 라이브러리), Redux, Redux-Saga / TypeScript(정적 타입, 컴파일언어) / ESLint / Prettier  
 `파일 의존성 동기화 중요!`  
 - yarn.lock 파일 중요  
 - package.json 의존성 파일 각각 설치 필요할 수 있음
