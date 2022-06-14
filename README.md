@@ -1,4 +1,4 @@
-# Next.js 개발환경
+# 프론트 빌드 템플릿 : Next.js 개발환경
 Node.js(웹서버)  
 Express(미들웨어)  
 Next.js(React 프레임워크)  
