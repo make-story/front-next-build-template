@@ -56,8 +56,9 @@ const createWrapperWithCommonLogic = () => {
       const { store, req, res, params, query } = context;
       console.log('getServerSideProps', Date.now());
 
-      // axios instance 생성
-      //const apiManager = axios.create();
+      // axios
+      // await preFetch(context); // 사전 데이터 호출(세팅) 부분
+      //const apiManager: TApiManager = await createApiManagerServerSide(context);
       const apiManager = {};
 
       const test = 'TEST';
