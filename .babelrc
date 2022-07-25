@@ -7,7 +7,7 @@
     ["module-resolver", {
       "root": ["."],
       "alias": {
-        // 내부(저장소) NPM 의존성: 프로젝트 개발파일 중, node_modules(내부 저장소 NPM) 의존성이 있고, alias 사용중이라면, 해당항목 필수추가 되어야함!
+        // 내부(저장소) NPM 의존성 대응: 프로젝트 개발파일 중, node_modules(내부 저장소 NPM) 의존성이 있고, alias 사용중이라면, 해당항목 필수추가 되어야함!
         "src/common": "./node_modules/common-react",
         "common": "./node_modules/common-react",
         "utils": "./node_modules/common-react/utils"
