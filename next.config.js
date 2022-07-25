@@ -17,7 +17,8 @@ module.exports = {
       //'next/config': 'next/dist/next-server/lib/runtime-config.js',
       //'next/dynamic': 'next/dist/next-server/lib/dynamic.js',
       //next: path.resolve(__dirname, './node_modules/next'),
-      // 프로젝트 개발파일 중, node_modules(내부 저장소 NPM) 의존성이 있고, alias 사용중이라면, 해당항목 필수추가 되어야함!
+
+      // 내부(저장소) NPM 의존성 : 프로젝트 개발파일 중, node_modules(내부 저장소 NPM) 의존성이 있고, alias 사용중이라면, 해당항목 필수추가 되어야함!
       'src/common': path.resolve(__dirname, './node_modules/common-react'),
       common: path.resolve(__dirname, './node_modules/common-react'),
       utils: path.resolve(__dirname, './node_modules/common-react/utils'),
@@ -55,9 +56,10 @@ module.exports = {
         // 'url-loader',
       ],
     });
-    /*config.module.rules.push({
+    // 내부(저장소) NPM 의존성
+    config.module.rules.push({
       test: /\.(ts|tsx)?$/,
-      include: path.resolve(__dirname, './node_modules/사용자NPM모듈'), // react, typescript 기반 코드로된 모듈
+      include: path.resolve(__dirname, './node_modules/common-react'), // react, typescript 기반 코드로된 모듈
       use: [
         {
           loader: 'babel-loader', // ts-loader 사용할 경우, npm run dev 에러
@@ -76,7 +78,7 @@ module.exports = {
           },
         },
       ],
-    });*/
+    });
     if (!isServer) {
       config.node = {
         fs: 'empty',

@@ -24,6 +24,15 @@
     "strict": true,
     "target": "esnext",
     "paths": {
+      "src/common/*": [
+        "./node_modules/common-react/*"
+      ],
+      "common/*": [
+        "./node_modules/common-react/*"
+      ],
+      "utils/*": [
+        "./node_modules/common-react/utils/*"
+      ],
       "src/*": [
         "./src/*"
       ],
