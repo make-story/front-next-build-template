@@ -23,7 +23,7 @@ module.exports = {
       common: path.resolve(__dirname, './node_modules/common-react'),
       utils: path.resolve(__dirname, './node_modules/common-react/utils'),
     };
-    config.module.rules.push({
+    /*config.module.rules.push({
       test: /\.(jpe?g|png|gif)$/,
       use: [
         {
@@ -39,7 +39,7 @@ module.exports = {
           },
         },
       ],
-    });
+    });*/
     config.module.rules.push({
       test: /\.(svg)$/,
       use: [

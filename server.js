@@ -51,9 +51,9 @@ app.prepare().then(() => {
   server.use(express.urlencoded({ extended: true }));
   server.use(cookieParser()); // process.env.COOKIE_SECRET
   server.use(express.static(path.join(__dirname, 'public'))); // public 정적 경로
-  server.use('/kr/ko/:page', function (req, res, next) {
+  /*server.use('/', function (req, res, next) { // HTTP 호출 미들웨어 기능적 요소 주입 
     return next();
-  });
+  });*/
 
   server.get('/', function (req, res, next) {
     //console.log('originalUrl', req.originalUrl);
@@ -66,11 +66,11 @@ app.prepare().then(() => {
     const parsedUrl = parse(req.url, true);
     const { pathname, query } = parsedUrl;
 
-    return res.redirect('/kr/ko/display/main');
+    return res.redirect('/test');
   });
   /*server.get('/', function (req, res, next) {
         return res.redirect('/main');
-    });*/
+  });*/
   server.get('*', (req, res) => {
     return handle(req, res);
   });

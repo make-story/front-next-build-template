@@ -41,7 +41,6 @@
   "exclude": [
     ".next",
     "public",
-    "node_modules"
   ],
   "include": [
     "next-env.d.ts",
