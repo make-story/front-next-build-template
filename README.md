@@ -5,9 +5,12 @@ Next.js(React 프레임워크)
 React(UI 라이브러리), Redux, Redux-Saga  
 TypeScript(정적 타입, 컴파일언어)  
 ESLint / Prettier  
+PM2(노드 프로세스 관리, 클러스터링)  
 
 - AWS 환경  
-- Node.js 버전: 12.18.3  
+- Node.js 버전: 14.20.1
+  https://nodejs.org/download/release/latest-v14.x/  
+  https://github.com/nodejs/release#release-schedule    
 - Next.js 버전: 10.0.7  
 - React 버전: 16.13.1  
 - Redux 버전: 4.0.5  
