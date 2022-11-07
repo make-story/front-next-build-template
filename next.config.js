@@ -6,6 +6,9 @@ const isDev = process.env.NODE_ENV === 'development';
 
 module.exports = {
   //basePath: '/',
+  distDir: '_next',
+  publicRuntimeConfig: {},
+  serverRuntimeConfig: {},
   // 웹팩설정
   webpack: (config, { isServer }) => {
     //config.devtool = 'hidden-source-map'; // 'eval'
