@@ -10,7 +10,10 @@ module.exports = {
   publicRuntimeConfig: {},
   serverRuntimeConfig: {},
   // 웹팩설정
-  webpack: (config, { isServer }) => {
+  webpack: (config, { buildId, dev, isServer, defaultLoaders, nextRuntime, webpack }) => {
+    //console.log('webpack mode', config.mode); // process.env.NODE_ENV 값에 따라 설정됨
+    //console.log('webpack filename', config.output.filename);
+
     //config.devtool = 'hidden-source-map'; // 'eval'
     config.resolve.alias = {
       ...config.resolve.alias,
