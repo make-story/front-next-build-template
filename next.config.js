@@ -25,9 +25,9 @@ module.exports = {
       //next: path.resolve(__dirname, './node_modules/next'),
 
       // 내부(저장소) NPM 의존성 대응: 프로젝트 개발파일 중, node_modules(내부 저장소 NPM) 의존성이 있고, alias 사용중이라면, 해당항목 필수추가 되어야함!
-      'src/common': path.resolve(__dirname, './node_modules/common-react'),
-      common: path.resolve(__dirname, './node_modules/common-react'),
-      utils: path.resolve(__dirname, './node_modules/common-react/utils'),
+      //'src/common': path.resolve(__dirname, './node_modules/common-react'),
+      //common: path.resolve(__dirname, './node_modules/common-react'),
+      //utils: path.resolve(__dirname, './node_modules/common-react/utils'),
     };
     /*config.module.rules.push({
       test: /\.(jpe?g|png|gif)$/,

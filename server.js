@@ -66,6 +66,7 @@ app.prepare().then(() => {
     const parsedUrl = parse(req.url, true);
     const { pathname, query } = parsedUrl;
 
+    console.log('node > redirect!!');
     return res.redirect('/test');
   });
   /*server.get('/', function (req, res, next) {
