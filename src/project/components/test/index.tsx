@@ -1,13 +1,12 @@
 /**
  * 테스트
  */
- import React, { useState, useCallback, useEffect, useReducer, useRef, Suspense } from 'react';
- import { ReactNode } from 'react';
- import Router, { useRouter } from 'next/router';
- import { useDispatch, useSelector } from 'react-redux';
- import dynamic from 'next/dynamic';
+import React, { useState, useCallback, useEffect, useReducer, useRef, Suspense } from 'react';
+import Router, { useRouter } from 'next/router';
+import { useDispatch, useSelector } from 'react-redux';
+import dynamic from 'next/dynamic';
 
-const DynamicTest = dynamic(() => import('../event/index'), {
+const DynamicTest = dynamic(() => import('../common/index'), {
   //ssr: false,
   loading: () => <p>Loading...</p>,
   //suspense: true,

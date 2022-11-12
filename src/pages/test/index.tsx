@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { wrapper } from 'src/store';
 import { RootState } from 'src/rootReducer';
 import { testActionCreator } from 'src/project/stores/test/action';
+import Test from 'src/project/components/test';
 
 // 테스트 (IOS vh 이슈대응)
 if (typeof window !== 'undefined') {
@@ -35,7 +36,11 @@ const Page = () => {
     dispatch(testActionCreator.fetchTest());
   }, []);
 
-  return <>TEST</>;
+  return (
+    <>
+      <Test />
+    </>
+  );
 };
 
 /**
