@@ -5,7 +5,8 @@
 '치크' 이 빌드는 매개변수가 있습니다
 
 - Choice Parameter
-  Name
+
+Name
 
 ```
 NPM_PACKAGE_NAME
@@ -27,7 +28,7 @@ NPM 패키지 선택
 
 - Execute shell
 
-```
+```bash
 # 배포환경
 export PHASE="stg"
 
@@ -78,7 +79,8 @@ echo NPM_PACKAGE_VERSION=`node -p "require('$NPM_PACKAGE_PATH/package.json').ver
 ```
 
 - Inject environment variables
-  Properties File Path
+
+Properties File Path
 
 ```
 ./version.properties
@@ -86,7 +88,7 @@ echo NPM_PACKAGE_VERSION=`node -p "require('$NPM_PACKAGE_PATH/package.json').ver
 
 - Execute shell
 
-```
+```bash
 # 환경변수 정상로드 여부
 echo $NPM_PACKAGE_VERSION
 ```
@@ -94,7 +96,8 @@ echo $NPM_PACKAGE_VERSION
 ## 빌드 후 조치
 
 - Git Publisher
-  '체크' Push Only If Build Successds
+
+'체크' Push Only If Build Successds
 
 Tag to push
 
