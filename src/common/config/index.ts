@@ -2,17 +2,20 @@
  * 공통 설정 값
  */
 
-const moduleDefaylt = {
+const defaultItem = {
+  moduleName: '',
   isRender: false,
-  isLazyContent: true,
+  isLazyModule: true,
 };
 export const moduleInfo = {
   ABC_1: {
-    ...moduleDefaylt,
-    isLazyContent: false,
+    ...defaultItem,
+    moduleName: 'ABC_1',
+    isLazyModule: false,
   },
   ABC_2: {
-    ...moduleDefaylt,
+    ...defaultItem,
+    moduleName: 'ABC_2',
   },
 };
 
