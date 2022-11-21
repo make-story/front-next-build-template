@@ -1,7 +1,7 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
 import { moduleInfo } from '../../../common/config/index';
-import DynamicModule from './DynamicModule';
+import LazyModule from './LazyModule';
 
 // 모듈
 const modules: any = {
@@ -24,9 +24,9 @@ const Modules = React.forwardRef<any, any>((props: any, ref) => {
         // https://dirask.com/posts/React-how-to-create-dynamic-tag-name-jMm20j
         const Component: any = (modules[item] || <></>) as keyof JSX.IntrinsicElements;
         return (
-          <DynamicModule key={`module-${index}`}>
+          <LazyModule key={`module-${index}`}>
             <Component />
-          </DynamicModule>
+          </LazyModule>
         );
       })}
     </>

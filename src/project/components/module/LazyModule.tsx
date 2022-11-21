@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 // https://betterprogramming.pub/lazy-loading-in-next-js-simplified-435681afb18a
 // https://www.aleksandrhovhannisyan.com/blog/react-lazy-dynamic-imports/
 // https://helloinyong.tistory.com/323
-const DynamicModule = ({
+const LazyModule = ({
   children,
   moduleName = '',
   isLazyModule = true,
@@ -42,4 +42,4 @@ const DynamicModule = ({
   );
 };
 
-export default DynamicModule;
+export default LazyModule;

@@ -2,14 +2,10 @@ import React, { ReactChild, useRef } from 'react';
 import useIntersectionObserver from './useIntersectionObserver';
 
 export default function DyanamicSection({
-  bg,
-  num,
   prefetch,
   freezeOnceVisible,
   children,
 }: {
-  bg: string;
-  num: string;
   prefetch?: boolean;
   freezeOnceVisible?: boolean;
   children: ReactChild;
@@ -20,9 +16,5 @@ export default function DyanamicSection({
     prefetch,
   });
   const isVisible = !!entry?.isIntersecting;
-  return (
-    <div className={`section${num}`} ref={ref} style={{ background: bg, height: '100vh' }}>
-      {(isVisible || prefetch) && children}
-    </div>
-  );
+  return <div ref={ref}>{(isVisible || prefetch) && children}</div>;
 }

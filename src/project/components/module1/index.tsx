@@ -8,7 +8,7 @@ const TestComponent = dynamic(() => import('./TestComponent'));
 const Index = () => {
   return (
     <>
-      <DyanamicSection bg={'skyblue'} num={'1'}>
+      <DyanamicSection>
         <TestComponent />
       </DyanamicSection>
     </>
