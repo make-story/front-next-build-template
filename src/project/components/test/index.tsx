@@ -8,6 +8,7 @@ import dynamic from 'next/dynamic';
 
 import Module from '../module/index';
 import Module1 from '../module1/index';
+import Module3 from '../module3/index';
 
 const DynamicTest = dynamic(() => import('../common/index'), {
   //ssr: false,
@@ -28,6 +29,7 @@ const Test = React.forwardRef<any, any>((props: IProps, ref) => {
       <div style={{ width: '100px', height: '3000px', border: '1px solid' }}></div>
       <Module />
       <Module1 />
+      <Module3 />
     </>
   );
 });
