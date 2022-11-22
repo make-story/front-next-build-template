@@ -46,6 +46,8 @@ const LazyModule = ({
 
   return (
     <div ref={ref} data-observer={isIntersecting}>
+      {/* 로딩중인 컴포넌트는 연한색의 스켈레톤 UI */}
+      {/* 상단 모듈 렌더 기다리는 컴포넌트는 진한색의 스켈리톤 UI */}
       {(isIntersecting || !isLazyModule) && children}
     </div>
   );
