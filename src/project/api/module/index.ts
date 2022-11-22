@@ -1,6 +1,5 @@
 /**
  * 테스트
- * withCredentials: 쿠키전송
  */
 import axios from 'axios';
 

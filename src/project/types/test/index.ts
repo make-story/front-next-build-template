@@ -24,8 +24,8 @@ export interface IProduct {
 }
 
 // API 반환 값
-// 이달의 신상 썸네일형
-export interface IMainContentsNewOfTheMonth {
+// 테스트
+export interface ITest {
   title: string;
   order: number;
   img: string;
