@@ -2,6 +2,7 @@ import React from 'react';
 import dynamic from 'next/dynamic';
 import { moduleInfo } from '../../../common/config/index';
 import LazyModule from './LazyModule';
+import ABC_3 from './ABC_3';
 
 // 모듈
 const modules: any = {
@@ -11,10 +12,11 @@ const modules: any = {
   ABC_2: dynamic(() => import('./ABC_2'), {
     ssr: false,
   }),
+  ABC_3: ABC_3
 };
 
 const Modules = React.forwardRef<any, any>((props: any, ref) => {
-  const list = ['ABC_1', 'ABC_2'];
+  const list = ['ABC_1', 'ABC_2', 'ABC_3'];
   return (
     <>
       {list.map((item: any, index: number) => {
