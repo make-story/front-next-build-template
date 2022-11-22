@@ -24,7 +24,7 @@ const Modules = React.forwardRef<any, any>((props: any, ref) => {
         // https://dirask.com/posts/React-how-to-create-dynamic-tag-name-jMm20j
         const Component: any = (modules[item] || <></>) as keyof JSX.IntrinsicElements;
         return (
-          <LazyModule key={`module-${index}`}>
+          <LazyModule key={`module-${index}`} moduleName={item}>
             <Component />
           </LazyModule>
         );
