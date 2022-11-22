@@ -17,10 +17,17 @@ const defaultItem: IModuleItem = {
   moduleName: '',
   component: null,
 };
+
+// Lazy 모듈 적용 기준
+export const lazyModuleStartIndex = 3;
+
+// 모듈 상태값
 export const moduleState = {
   _isRender: false,
   _isLazyModule: true,
 };
+
+// 모듈 정보
 export const moduleInfo: IModuleInfo = {
   ABC_1: {
     ...defaultItem,

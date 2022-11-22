@@ -1,5 +1,6 @@
 import React from 'react';
-import { moduleInfo } from '@src/common/config/index';
+
+import { moduleInfo, lazyModuleStartIndex } from '@src/common/config/index';
 import LazyModule from './LazyModule';
 
 const Modules = React.forwardRef<any, any>((props: any, ref) => {
@@ -13,7 +14,7 @@ const Modules = React.forwardRef<any, any>((props: any, ref) => {
         // https://medium.com/@Carmichaelize/dynamic-tag-names-in-react-and-jsx-17e366a684e9
         // https://dirask.com/posts/React-how-to-create-dynamic-tag-name-jMm20j
         const Component: any = (moduleInfo[item]?.component || <></>) as keyof JSX.IntrinsicElements;
-        const isLazyModule = 3 < index ? true : false;
+        const isLazyModule = lazyModuleStartIndex < index ? true : false;
         return (
           <LazyModule key={`module-${index}`} moduleName={item} isLazyModule={isLazyModule}>
             <Component />
