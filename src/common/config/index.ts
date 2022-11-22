@@ -8,8 +8,6 @@ import ABC_3 from '@src/project/components/module/ABC_3';
 interface IModuleItem {
   moduleName: string;
   component: any;
-  isRender: boolean;
-  isLazyModule: boolean;
 }
 interface IModuleInfo {
   [key: string]: IModuleItem;
@@ -18,8 +16,10 @@ interface IModuleInfo {
 const defaultItem: IModuleItem = {
   moduleName: '',
   component: null,
-  isRender: false,
-  isLazyModule: true,
+};
+export const moduleState = {
+  _isRender: false,
+  _isLazyModule: true,
 };
 export const moduleInfo: IModuleInfo = {
   ABC_1: {

@@ -13,7 +13,7 @@ const Modules = React.forwardRef<any, any>((props: any, ref) => {
         // https://medium.com/@Carmichaelize/dynamic-tag-names-in-react-and-jsx-17e366a684e9
         // https://dirask.com/posts/React-how-to-create-dynamic-tag-name-jMm20j
         const Component: any = (moduleInfo[item]?.component || <></>) as keyof JSX.IntrinsicElements;
-        const isLazyModule = 'isLazyModule' in moduleInfo[item] ? moduleInfo[item].isLazyModule : false;
+        const isLazyModule = 3 < index ? true : false;
         return (
           <LazyModule key={`module-${index}`} moduleName={item} isLazyModule={isLazyModule}>
             <Component />
