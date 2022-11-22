@@ -8,11 +8,7 @@
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
     "jsx": "preserve",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "module": "esnext",
     "moduleResolution": "node",
     "noEmit": true,
@@ -24,29 +20,11 @@
     "strict": true,
     "target": "esnext",
     "paths": {
-      "src/common/*": [
-        "./node_modules/common-react/*"
-      ],
-      "common/*": [
-        "./node_modules/common-react/*"
-      ],
-      "utils/*": [
-        "./node_modules/common-react/utils/*"
-      ],
-      "src/*": [
-        "./src/*"
-      ],
+      "@src/*": ["./src/*"],
+      "@common/*": ["./node_modules/common-react/*"],
+      "@utils/*": ["./node_modules/common-react/utils/*"]
     }
   },
-  "exclude": [
-    ".next",
-    "public",
-  ],
-  "include": [
-    "next-env.d.ts",
-    "global.d.ts",
-    "index.d.ts",
-    "**/*.ts",
-    "**/*.tsx"
-  ]
+  "exclude": [".next", "public"],
+  "include": ["next-env.d.ts", "global.d.ts", "index.d.ts", "**/*.ts", "**/*.tsx"]
 }

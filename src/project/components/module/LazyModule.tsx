@@ -7,11 +7,9 @@ https://stackoverflow.com/questions/53139884/next-js-disable-server-side-renderi
 https://blog.bitsrc.io/using-non-ssr-friendly-components-with-next-js-916f38e8992c
 <DynamicModule>TEST</DynamicModule>
 */
-const Module = ({ children }: any) => (
-  <React.Fragment>{children}</React.Fragment>
-);
-const DynamicModule = dynamic(() => Promise.resolve(Module), {
-  ssr: false
+const Module = ({ children }: any) => <React.Fragment>{children}</React.Fragment>;
+export const DynamicModule = dynamic(() => Promise.resolve(Module), {
+  ssr: false,
 });
 
 // https://betterprogramming.pub/lazy-loading-in-next-js-simplified-435681afb18a
