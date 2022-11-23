@@ -10,7 +10,7 @@ interface IState {
 
 // 초기 상태 값
 export const initialState = {
-  data: [],
+  data: null,
 };
 
 // 리듀서 함수 - combineReducers 에 등록
@@ -19,13 +19,13 @@ export default function reducer(state: IState = initialState, action: AnyAction)
 
   switch (type) {
     // 테스트
-    case testActionType.FETCH_TEST_SUCCESS:
-      console.log('test > reducer > FETCH_TEST_SUCCESS', action);
+    case testActionType.FETCH_MODULE_TEST_SUCCESS:
+      console.log('module > reducer > FETCH_MODULE_TEST_SUCCESS', action);
       return produce(state, (draft: { data: any }) => {
         draft.data = payload;
       });
-    case testActionType.FETCH_TEST_FAILURE:
-      console.log('test > reducer > FETCH_TEST_SUCCESS', action);
+    case testActionType.FETCH_MODULE_TEST_FAILURE:
+      console.log('module > reducer > FETCH_MODULE_TEST_FAILURE', action);
       return state;
 
     default:

@@ -16,27 +16,26 @@ https://github.com/redux-utilities/flux-standard-action
 import { AnyAction } from 'redux';
 import { call, delay, put, takeEvery, takeLatest } from 'redux-saga/effects';
 
-import { testActionType, testActionCreator } from 'src/project/stores/test/action';
+import { testActionType, testActionCreator } from 'src/project/stores/module/action';
 import { loadingActionType, loadingActionCreator } from 'src/project/stores/loading/action';
-import * as api from 'src/project/api/test';
-import { ITest } from 'src/project/types/test';
+import * as api from 'src/project/api/module';
 
 // 테스트
-function* fetchTest(action: AnyAction) {
+function* fetchModuleTest(action: AnyAction) {
   const { type, payload, apiManager } = action;
-  console.log('test > saga > fetchTest', action); // createAction 에서 넘어오는 값
+  console.log('module > saga > fetchModuleTest', action); // createAction 에서 넘어오는 값
 
   // 로딩 시작
-  yield put(loadingActionCreator.startLoading(testActionType.FETCH_TEST));
+  yield put(loadingActionCreator.startLoading(testActionType.FETCH_MODULE_TEST));
 
   try {
     // call(비동기 실행함수, 함꼐 넘길 파라미터 값)
-    const data: ITest = yield call(api.fetchTest, action.payload);
+    const { data, error }: any = yield call(api.fetchModuleTest1, action.payload);
 
     // 디스패치
     yield put({
       // createAction 활용해 생성된 액션함수 사용 없이 바로 호출!
-      type: testActionType.FETCH_TEST_SUCCESS, // 액션 타입
+      type: testActionType.FETCH_MODULE_TEST_SUCCESS, // 액션 타입
       payload: data, // 응답 데이터 값
       meta: action.payload, // 호출정보
     });
@@ -44,17 +43,17 @@ function* fetchTest(action: AnyAction) {
     // 디스패치
     yield put({
       // createAction 활용해 생성된 액션함수 사용 없이 바로 호출!
-      type: testActionType.FETCH_TEST_FAILURE, // 액션 타입
+      type: testActionType.FETCH_MODULE_TEST_FAILURE, // 액션 타입
       payload: e,
       error: true,
     });
   }
 
   // 로딩 끝
-  yield put(loadingActionCreator.finishLoading(testActionType.FETCH_TEST));
+  yield put(loadingActionCreator.finishLoading(testActionType.FETCH_MODULE_TEST));
 }
 
 // Saga 미들웨어 - 액션타입 등록
 export function* watchTestSaga() {
-  yield takeLatest(testActionType.FETCH_TEST, fetchTest);
+  yield takeLatest(testActionType.FETCH_MODULE_TEST, fetchModuleTest);
 }

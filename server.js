@@ -69,6 +69,20 @@ app.prepare().then(() => {
     console.log('node > redirect!!');
     return res.redirect('/test');
   });
+
+  // 더미데이터
+  server.get('/dummy/*', (req, res) => {
+    const { params } = req;
+    const filename = params[0] || '';
+    if (fs.existsSync(path.join(__dirname, `./dummy/${filename}.json`))) {
+      fs.readFile(path.join(__dirname, `./dummy/${filename}.json`), (error, data) => {
+        return res.json(data);
+      });
+    } else {
+      return res.json({ error: filename });
+    }
+  });
+
   /*server.get('/', function (req, res, next) {
         return res.redirect('/main');
   });*/

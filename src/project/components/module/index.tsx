@@ -1,10 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { moduleInfo, lazyModuleStartIndex } from '@src/common/config/index';
+import { fetchModuleTest1 } from '@src/project/api/module/index';
 import LazyModule from './LazyModule';
 
 const Modules = React.forwardRef<any, any>((props: any, ref) => {
   const list = ['ABC_1', 'ABC_2', 'ABC_3']; // API 응답 예
+
+  useEffect(() => {
+    fetchModuleTest1().then((value: any) => {
+      const { data, error } = value;
+      console.log('data', data);
+      console.log('error', error);
+    });
+  }, []);
 
   return (
     <>

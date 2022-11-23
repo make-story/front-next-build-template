@@ -17,25 +17,25 @@ https://github.com/redux-utilities/flux-standard-action
 액션생성(createAction) -> 액션실행(dispatch) -> 미들웨어(redux-saga) -> 리듀서(handleActions)
 */
 // 액션 타입 - 값을 '경로/액션타입값' 형태로 주는 이유는, 다른 Action type과 키값이 중복되는 것을 방지하고자 하는 것 (Saga 등 미들웨어에서 값이 동일한 Type 값 실행가능성 제거)
-const FETCH_TEST = 'test/FETCH_TEST';
-const FETCH_TEST_SUCCESS = 'test/FETCH_TEST_SUCCESS';
-const FETCH_TEST_FAILURE = 'test/FETCH_TEST_FAILURE';
+const FETCH_MODULE_TEST = 'test/FETCH_MODULE_TEST';
+const FETCH_MODULE_TEST_SUCCESS = 'test/FETCH_MODULE_TEST_SUCCESS';
+const FETCH_MODULE_TEST_FAILURE = 'test/FETCH_MODULE_TEST_FAILURE';
 
 export const testActionType = {
-  FETCH_TEST,
-  FETCH_TEST_SUCCESS,
-  FETCH_TEST_FAILURE,
+  FETCH_MODULE_TEST,
+  FETCH_MODULE_TEST_SUCCESS,
+  FETCH_MODULE_TEST_FAILURE,
 };
 
 // 액션 생성 함수 - dispatch 로 해당 액션 실행을 위한 구조를 가지고 있음
-const fetchTest = (payload?: any) => {
-  console.log('test > createAction > fetchTest', payload);
+const fetchModuleTest = (payload?: any) => {
+  console.log('module > createAction > fetchModuleTest', payload);
   return {
-    type: FETCH_TEST,
+    type: FETCH_MODULE_TEST,
     payload, // 사용자 값
   };
 };
 
 export const testActionCreator = {
-  fetchTest,
+  fetchModuleTest,
 };
