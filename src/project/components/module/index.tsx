@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 
 import { moduleInfo, lazyModuleStartIndex } from '@src/common/config/index';
+import { HISTORY_ACTION_TYPE, getNavigationType } from '@src/common/utils/history';
+import { eventOn } from '@src/common/utils/event';
 import { fetchModuleTest1 } from '@src/project/api/module/index';
 import LazyModule from './LazyModule';
 
@@ -12,6 +14,14 @@ const Modules = React.forwardRef<any, any>((props: any, ref) => {
       const { data, error } = value;
       console.log('data', data);
       console.log('error', error);
+    });
+  }, []);
+
+  useEffect(() => {
+    // 브라우저 접속 형태 확인
+    console.log('navigation', getNavigationType());
+    eventOn(HISTORY_ACTION_TYPE.BF_CACHE_STATE_UPDATE, ({ detail }: any = {}) => {
+      console.log('BF_CACHE_STATE_UPDATE', detail);
     });
   }, []);
 
