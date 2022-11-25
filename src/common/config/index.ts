@@ -34,7 +34,7 @@ export const moduleInfo: IModuleInfo = {
     moduleName: 'ABC_1',
     component: dynamic(() => import('@src/project/components/module/ABC_1'), {
       ssr: false,
-      suspense: true,
+      //suspense: true,
     }),
   },
   ABC_2: {
@@ -42,7 +42,7 @@ export const moduleInfo: IModuleInfo = {
     moduleName: 'ABC_2',
     component: dynamic(() => import('@src/project/components/module/ABC_2'), {
       ssr: false,
-      suspense: true,
+      //suspense: true,
     }),
   },
   ABC_3: {
