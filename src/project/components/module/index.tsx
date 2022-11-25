@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, Suspense } from 'react';
 
 import { moduleInfo, lazyModuleStartIndex } from '@src/common/config/index';
 import { HISTORY_ACTION_TYPE, getNavigationType } from '@src/common/utils/history';
@@ -36,7 +36,9 @@ const Modules = React.forwardRef<any, any>((props: any, ref) => {
         const isLazyModule = lazyModuleStartIndex < index ? true : false;
         return (
           <LazyModule key={`module-${index}`} moduleName={item} isLazyModule={isLazyModule}>
-            <Component />
+            <Suspense fallback={<p>Loading module...</p>}>
+              <Component />
+            </Suspense>
           </LazyModule>
         );
       })}
