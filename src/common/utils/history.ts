@@ -130,12 +130,12 @@ export const getHistoryBFCache = ({ key = HISTORY_BFCACHE }: { key?: string } = 
   }
 };
 
-// 현재 페이지 URL 기준, BFCache 에 따른 새로고침 전 스크롤값 저장
+// 현재 페이지 URL 기준, BFCache 에 따른 새로고침 전, 기존 저장되어 있던 스크롤값 저장
 export const setHistoryBFCacheScroll = (key: string = HISTORY_BFCACHE_SCROLL) => {
   window.sessionStorage.setItem(key, JSON.stringify(getHistoryWindowScroll()));
 };
 
-// 현재 페이지 URL 기준, BFCache 에 따른 새로고침 전 스크롤값 불러오기
+// 현재 페이지 URL 기준, BFCache 에 따른 새로고침 전, 기존 저장되어 있던 스크롤값 불러오기
 export const getHistoryBFCacheScroll = (key: string = HISTORY_BFCACHE_SCROLL) => {
   return JSON.parse(window.sessionStorage.getItem(key) || '{}');
 };
