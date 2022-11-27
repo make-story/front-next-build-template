@@ -1,7 +1,7 @@
 import React, { useEffect, Suspense, useState } from 'react';
 
 import { moduleInfo, lazyModuleStartIndex } from '@src/common/config/index';
-import { HISTORY_ACTION_TYPE, getNavigationType } from '@src/common/utils/history';
+import { HISTORY_ACTION_TYPE, NAVIGATION_TYPE, getNavigationType } from '@src/common/utils/history';
 import { eventOn } from '@src/common/utils/event';
 import useHistoryState from '@src/common/hooks/useHistoryState';
 import { fetchModuleTest1 } from '@src/project/api/module/index';
@@ -42,7 +42,8 @@ const Modules = React.forwardRef<any, any>((props: any, ref) => {
         // https://medium.com/@Carmichaelize/dynamic-tag-names-in-react-and-jsx-17e366a684e9
         // https://dirask.com/posts/React-how-to-create-dynamic-tag-name-jMm20j
         const Component: any = (moduleInfo[item]?.component || <></>) as keyof JSX.IntrinsicElements;
-        const isLazyModule = lazyModuleStartIndex <= index ? true : false;
+        const isLazyModule =
+          navigationType !== NAVIGATION_TYPE.BACK_FORWARD && lazyModuleStartIndex <= index ? true : false;
         return (
           <LazyModule key={`module-${index}`} moduleName={item} isLazyModule={isLazyModule}>
             {/*<Suspense fallback={<p>Loading module...</p>}>*/}

@@ -3,16 +3,6 @@
  * IE10 이상이면 history.replaceState 저장, 이하이면 IE8 이상 지원하는 sessionStorage 저장
  * IOS 등에서 터치(플리킹)로 뒤로가기를 했을 경우 BFCache 활용됨
  * (IOS nitro엔진 WKWebview는 히스토리백시 BFCache를 사용)
- *
- * Page Lifecycle
- * https://developers.google.com/web/updates/2018/07/page-lifecycle-api
- *
- * BF Cache
- * https://web.dev/bfcache/
- * 비활성화 Cache-Control: no-store
- * onpageshow 이벤트를 통해 BFCache 여부를 알 수 있다하더라도,
- * 페이지이동 -> 뒤로가기로 BFCache 페이지 진입 -> 다시 페이지 이동 -> 뒤로가기로 BFCache 이력이 있던 페이지 진입
- * onpageshow 이벤트도 실행되지 않는다. (즉, BFCache 를 onpageshow 이벤트로 두번이상 부터는 알 수 없다.)
  */
 import { eventDispatch } from './event';
 
@@ -26,9 +16,6 @@ export const HISTORY_ACTION_TYPE = {
   PAGE_SHOW: 'PAGE_SHOW',
   PAGE_HIDE: 'PAGE_HIDE',
 };
-const HISTORY_SCROLL = 'HISTORY_SCROLL';
-const HISTORY_BFCACHE = 'HISTORY_BFCACHE';
-const HISTORY_BFCACHE_SCROLL = 'HISTORY_BFCACHE_SCROLL';
 export const NAVIGATION_TYPE = {
   // window.performance.getEntriesByType('navigation') 반환값
   NAVIGATE: 'navigate',
@@ -38,6 +25,9 @@ export const NAVIGATION_TYPE = {
   PRERENDER: 'prerender',
   NONE: '',
 };
+const HISTORY_SCROLL = 'HISTORY_SCROLL';
+const HISTORY_BFCACHE = 'HISTORY_BFCACHE';
+const HISTORY_BFCACHE_SCROLL = 'HISTORY_BFCACHE_SCROLL';
 interface IScrollLeftTop {
   left?: number;
   top?: number;
@@ -98,6 +88,10 @@ export const getHistoryWindowScroll = ({
  * https://blog.naver.com/PostView.nhn?blogId=qls0147&logNo=222157982248&categoryNo=0&parentCategoryNo=0&viewDate=&currentPage=1&postListTopCurrentPage=1&from=postView
  * unload 이벤트 리스너가 추가되어 있는 경우 bfcache에 적합하지 않은 페이지로 판단하는 브라우저 있음 (BFCache 활용안됨)
  *
+ * onpageshow 이벤트를 통해 BFCache 여부를 알 수 있다하더라도,
+ * 페이지이동 -> 뒤로가기로 BFCache 페이지 진입 -> 다시 페이지 이동 -> 뒤로가기로 BFCache 이력이 있던 페이지 진입
+ * onpageshow 이벤트도 실행되지 않는다. (즉, BFCache 를 onpageshow 이벤트로 두번이상 부터는 알 수 없다.)
+ *
  * - pageshow, pagebeforeshow, pagebeforehide, pagehide 이벤트
  * https://developer.mozilla.org/en-US/docs/Web/Events/pagehide
  * https://developer.mozilla.org/en-US/docs/Web/Events/pageshow
@@ -142,6 +136,7 @@ export const getHistoryBFCacheScroll = (key: string = HISTORY_BFCACHE_SCROLL) =>
 
 /**
  * Page Lifecycle
+ * https://developers.google.com/web/updates/2018/07/page-lifecycle-api
  * https://wd.imgix.net/image/kheDArv5csY6rvQUJDbWRscckLr1/Hs3H9gK98YT0pvvU3k25.png
  * pageshow > beforeunload > pagehide > unload > bfcache
  */
