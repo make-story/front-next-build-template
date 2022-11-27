@@ -22,7 +22,7 @@ let isBFCache: boolean | null = null;
  * 상태 업데이트 타입
  */
 export const HISTORY_ACTION_TYPE = {
-  BF_CACHE_STATE_UPDATE: 'BF_CACHE_STATE_UPDATE',
+  BF_CACHE_STATE: 'BF_CACHE_STATE',
   PAGE_HIDE: 'PAGE_HIDE',
 };
 
@@ -46,7 +46,7 @@ interface IScrollLeftTop {
   left?: number;
   top?: number;
 }
-const HISTORY_AMORE_SCROLL = 'HISTORY_AMORE_SCROLL';
+const HISTORY_SCROLL = 'HISTORY_SCROLL';
 // window 스크롤 값 반환
 // TODO: 오버플로우 스크롤 설정된 element 의 경우 대응필요
 export const getScroll = (element?: any) => {
@@ -58,14 +58,14 @@ export const getScroll = (element?: any) => {
 // window 스크롤 값 브라우저 스토리지에 저장
 export const setHistoryWindowScroll = (
   { left, top }: IScrollLeftTop = getScroll(),
-  { key = `${HISTORY_AMORE_SCROLL}_${getPageURL()}` }: { key?: string } = {},
+  { key = `${HISTORY_SCROLL}_${getPageURL()}` }: { key?: string } = {},
 ) => {
   //console.log(`scroll left: ${left}, top: ${top}`);
   window.sessionStorage.setItem(key, JSON.stringify({ left, top }));
 };
 // window 스크롤 값 브라우저 스토리지에서 불러오기
 export const getHistoryWindowScroll = ({
-  key = `${HISTORY_AMORE_SCROLL}_${getPageURL()}`,
+  key = `${HISTORY_SCROLL}_${getPageURL()}`,
 }: { key?: string } = {}): IScrollLeftTop => {
   //window.pageYOffset || window.scrollY || document.documentElement.scrollTop
   let scroll: any = window.sessionStorage.getItem(key);
@@ -78,16 +78,16 @@ export const getHistoryWindowScroll = ({
 };
 
 // 현재 페이지 BFCache 이력
-const HISTORY_AMORE_BFCACHE = 'HISTORY_AMORE_BFCACHE';
+const HISTORY_BFCACHE = 'HISTORY_BFCACHE';
 // BFCache 된 페이지 였는지 이력 브라우저 스토리지에 저장
 const setHistoryBFCache = (
   isBFCache: null | boolean,
-  { key = `${HISTORY_AMORE_BFCACHE}_${getPageURL()}` }: { key?: string } = {},
+  { key = `${HISTORY_BFCACHE}_${getPageURL()}` }: { key?: string } = {},
 ) => {
   window.sessionStorage.setItem(key, String(isBFCache));
 };
 // BFCache 페이지 이력 브라우저 스토리지에서 불러오기
-const getHistoryBFCache = ({ key = `${HISTORY_AMORE_BFCACHE}_${getPageURL()}` }: { key?: string } = {}) => {
+const getHistoryBFCache = ({ key = `${HISTORY_BFCACHE}_${getPageURL()}` }: { key?: string } = {}) => {
   return window.sessionStorage.getItem(key);
 };
 
@@ -111,7 +111,7 @@ if (typeof window !== 'undefined') {
     }
     console.log('history > BFCache', isBFCache);
     console.log('history > referrer', document?.referrer);
-    eventDispatch(HISTORY_ACTION_TYPE.BF_CACHE_STATE_UPDATE, isBFCache);
+    eventDispatch(HISTORY_ACTION_TYPE.BF_CACHE_STATE, isBFCache);
   });
 
   // hashchange
