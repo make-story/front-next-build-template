@@ -22,7 +22,7 @@ export const fetchModuleTest1 = (params: any = {}) => {
   return delay(randomNumberInRange(2000, 5000)).then(async () => {
     try {
       const { config, data, status } = await axios.get('/dummy/module/index');
-      return { data };
+      return data;
     } catch (error) {
       throw error;
       //return { error };

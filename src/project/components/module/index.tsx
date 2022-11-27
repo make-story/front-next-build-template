@@ -1,4 +1,5 @@
 import React, { useEffect, Suspense, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { moduleInfo, lazyModuleStartIndex } from '@src/common/config/index';
 import { HISTORY_ACTION_TYPE, NAVIGATION_TYPE, getNavigationType } from '@src/common/utils/history';
@@ -7,17 +8,24 @@ import useHistoryState from '@src/common/hooks/useHistoryState';
 import { fetchModuleTest1 } from '@src/project/api/module/index';
 import LazyModule from './LazyModule';
 
+import { RootState } from '@src/rootReducer';
+import { moduleActionType, moduleActionCreator } from '@src/project/stores/module/action';
+
 const Modules = React.forwardRef<any, any>((props: any, ref) => {
+  /*const loading = useSelector(
+    ({ loading }: RootState) => loading[moduleActionType.FETCH_MODULE_TEST],
+  );*/
+
   const { isBFCache, navigationType } = useHistoryState();
   const list = ['ABC_1', 'ABC_2', 'ABC_3']; // API 응답 예
 
-  useEffect(() => {
+  /*useEffect(() => {
     fetchModuleTest1().then((value: any) => {
       const { data, error } = value;
       console.log('data', data);
       console.log('error', error);
     });
-  }, []);
+  }, []);*/
 
   useEffect(() => {
     // 브라우저 접속 형태 확인

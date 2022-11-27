@@ -16,10 +16,10 @@ https://github.com/redux-utilities/flux-standard-action
 import { AnyAction } from 'redux';
 import { call, delay, put, takeEvery, takeLatest } from 'redux-saga/effects';
 
-import { testActionType, testActionCreator } from 'src/project/stores/test/action';
-import { loadingActionType, loadingActionCreator } from 'src/project/stores/loading/action';
-import * as api from 'src/project/api/test';
-import { ITest } from 'src/project/types/test';
+import { loadingActionType, loadingActionCreator } from '@src/common/stores/loading/action';
+import { testActionType, testActionCreator } from '@src/project/stores/test/action';
+import * as api from '@src/project/api/test';
+import { ITest } from '@src/project/types/test';
 
 // 테스트
 function* fetchTest(action: AnyAction) {

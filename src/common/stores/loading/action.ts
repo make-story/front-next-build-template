@@ -17,8 +17,8 @@ https://github.com/redux-utilities/flux-standard-action
 액션생성(createAction) -> 액션실행(dispatch) -> 미들웨어(redux-saga) -> 리듀서(handleActions)
 */
 // 액션 타입
-const START_LOADING = 'START_LOADING';
-const FINISH_LOADING = 'FINISH_LOADING';
+const START_LOADING = 'loading/START_LOADING';
+const FINISH_LOADING = 'loading/FINISH_LOADING';
 
 export const loadingActionType = {
   START_LOADING,
