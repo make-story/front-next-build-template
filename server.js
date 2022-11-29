@@ -86,6 +86,9 @@ app.prepare().then(() => {
   /*server.get('/', function (req, res, next) {
         return res.redirect('/main');
   });*/
+  server.get('/test/data', (req, res) => {
+    return res.json({ test: true });
+  });
   server.get('*', (req, res) => {
     return handle(req, res);
   });
