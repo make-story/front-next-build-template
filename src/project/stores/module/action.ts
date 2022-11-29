@@ -20,11 +20,13 @@ https://github.com/redux-utilities/flux-standard-action
 const FETCH_MODULE_TEST = 'module/FETCH_MODULE_TEST';
 const FETCH_MODULE_TEST_SUCCESS = 'module/FETCH_MODULE_TEST_SUCCESS';
 const FETCH_MODULE_TEST_FAILURE = 'module/FETCH_MODULE_TEST_FAILURE';
+const SET_RENDER_STATE = 'module/SET_RENDER_STATE';
 
 export const moduleActionType = {
   FETCH_MODULE_TEST,
   FETCH_MODULE_TEST_SUCCESS,
   FETCH_MODULE_TEST_FAILURE,
+  SET_RENDER_STATE,
 };
 
 // 액션 생성 함수 - dispatch 로 해당 액션 실행을 위한 구조를 가지고 있음
@@ -36,6 +38,15 @@ const fetchModuleTest = (payload?: any) => {
   };
 };
 
+const setRenderState = (payload?: any) => {
+  console.log('module > createAction > setRenderState', payload);
+  return {
+    type: SET_RENDER_STATE,
+    payload, // 사용자 값
+  };
+};
+
 export const moduleActionCreator = {
   fetchModuleTest,
+  setRenderState,
 };

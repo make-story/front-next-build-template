@@ -1,1 +1,25 @@
-{}
+{
+    "components": [
+        {
+            "code": "ABC_1",
+            "type": "TYPE_1",
+            "content": {
+
+            }
+        },
+        {
+            "code": "ABC_3",
+            "type": "TYPE_1",
+            "content": {
+
+            }
+        },
+        {
+            "code": "ABC_2",
+            "type": "TYPE_1",
+            "content": {
+
+            }
+        }
+    ]
+}

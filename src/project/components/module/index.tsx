@@ -12,20 +12,23 @@ import { RootState } from '@src/rootReducer';
 import { moduleActionType, moduleActionCreator } from '@src/project/stores/module/action';
 
 const Modules = React.forwardRef<any, any>((props: any, ref) => {
+  const dispatch = useDispatch();
   /*const loading = useSelector(
     ({ loading }: RootState) => loading[moduleActionType.FETCH_MODULE_TEST],
   );*/
-
+  const moduleData = useSelector(({ module }: RootState) => module.moduleData);
   const { isBFCache, navigationType } = useHistoryState();
-  const list = ['ABC_1', 'ABC_2', 'ABC_3']; // API 응답 예
 
-  /*useEffect(() => {
-    fetchModuleTest1().then((value: any) => {
-      const { data, error } = value;
-      console.log('data', data);
-      console.log('error', error);
-    });
-  }, []);*/
+  useEffect(() => {
+    /*fetchModuleTest1()
+      .then((data: any) => {
+        console.log('data', data);
+      })
+      .catch((error: any) => {
+        console.log('error', error);
+      });*/
+    dispatch(moduleActionCreator.fetchModuleTest());
+  }, []);
 
   useEffect(() => {
     // 브라우저 접속 형태 확인
@@ -44,22 +47,25 @@ const Modules = React.forwardRef<any, any>((props: any, ref) => {
 
   return (
     <>
-      {list.map((item: any, index: number) => {
-        // react component dynamic name
-        // https://stackoverflow.com/questions/29875869/react-jsx-dynamic-component-name
-        // https://medium.com/@Carmichaelize/dynamic-tag-names-in-react-and-jsx-17e366a684e9
-        // https://dirask.com/posts/React-how-to-create-dynamic-tag-name-jMm20j
-        const Component: any = (moduleInfo[item]?.component || <></>) as keyof JSX.IntrinsicElements;
-        const isLazyModule =
-          navigationType !== NAVIGATION_TYPE.BACK_FORWARD && lazyModuleStartIndex <= index ? true : false;
-        return (
-          <LazyModule key={`module-${index}`} moduleName={item} isLazyModule={isLazyModule}>
-            {/*<Suspense fallback={<p>Loading module...</p>}>*/}
-            <Component />
-            {/*</Suspense>*/}
-          </LazyModule>
-        );
-      })}
+      {!!moduleData?.length &&
+        moduleData.map((item: any, index: number) => {
+          const { code, type } = item;
+
+          // react component dynamic name
+          // https://stackoverflow.com/questions/29875869/react-jsx-dynamic-component-name
+          // https://medium.com/@Carmichaelize/dynamic-tag-names-in-react-and-jsx-17e366a684e9
+          // https://dirask.com/posts/React-how-to-create-dynamic-tag-name-jMm20j
+          const Component: any = (moduleInfo[code]?.component || <></>) as keyof JSX.IntrinsicElements;
+          const isLazyModule =
+            navigationType !== NAVIGATION_TYPE.BACK_FORWARD && lazyModuleStartIndex <= index ? true : false;
+          return (
+            <LazyModule key={`module-${index}`} position={index} code={code} isLazyModule={isLazyModule}>
+              {/*<Suspense fallback={<p>Loading module...</p>}>*/}
+              <Component />
+              {/*</Suspense>*/}
+            </LazyModule>
+          );
+        })}
     </>
   );
 });

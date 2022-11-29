@@ -75,8 +75,8 @@ app.prepare().then(() => {
     const { params } = req;
     const filename = params[0] || '';
     if (fs.existsSync(path.join(__dirname, `./dummy/${filename}.json`))) {
-      fs.readFile(path.join(__dirname, `./dummy/${filename}.json`), (error, data) => {
-        return res.json(data);
+      fs.readFile(path.join(__dirname, `./dummy/${filename}.json`), (error, buffer) => {
+        return res.json(JSON.parse(buffer));
       });
     } else {
       return res.json({ error: filename });

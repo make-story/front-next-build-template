@@ -6,7 +6,7 @@ import dynamic from 'next/dynamic';
 import ABC_3 from '@src/project/components/module/ABC_3';
 
 interface IModuleItem {
-  moduleName: string;
+  code: string;
   component: any;
 }
 interface IModuleInfo {
@@ -14,7 +14,7 @@ interface IModuleInfo {
 }
 
 const defaultItem: IModuleItem = {
-  moduleName: '',
+  code: '',
   component: null,
 };
 
@@ -31,7 +31,7 @@ export const moduleState = {
 export const moduleInfo: IModuleInfo = {
   ABC_1: {
     ...defaultItem,
-    moduleName: 'ABC_1',
+    code: 'ABC_1',
     component: dynamic(() => import('@src/project/components/module/ABC_1'), {
       ssr: false,
       //suspense: true,
@@ -39,7 +39,7 @@ export const moduleInfo: IModuleInfo = {
   },
   ABC_2: {
     ...defaultItem,
-    moduleName: 'ABC_2',
+    code: 'ABC_2',
     component: dynamic(() => import('@src/project/components/module/ABC_2'), {
       ssr: false,
       //suspense: true,
@@ -47,7 +47,7 @@ export const moduleInfo: IModuleInfo = {
   },
   ABC_3: {
     ...defaultItem,
-    moduleName: 'ABC_3',
+    code: 'ABC_3',
     component: ABC_3,
   },
 };
