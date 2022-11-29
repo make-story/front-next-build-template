@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react';
 
+import withModule from './withModule';
+
 const ABC_1 = () => {
   useEffect(() => {
     // 데이터 호출
@@ -15,4 +17,4 @@ const ABC_1 = () => {
   );
 };
 
-export default ABC_1;
+export default withModule(ABC_1);

@@ -43,7 +43,7 @@ export const useHistoryState = () => {
 
     // pageshow
     const pageshow = (event: PageTransitionEvent) => {
-      console.log('history > pageshow', event);
+      console.log('useHistoryState > pageshow', event);
       //console.log('referrer', document.referrer);
       if (event.persisted) {
         // BFCache 로 페이지 복원
@@ -57,7 +57,7 @@ export const useHistoryState = () => {
 
     // pagehide
     const pagehide = (event: PageTransitionEvent) => {
-      console.log('history > pagehide', event);
+      console.log('useHistoryState > pagehide', event);
       setHistoryBFCache(isBFCache);
       setHistoryWindowScroll();
       // 사파리에서는 BFCache 에 기존 JavaScript 코드가 실행되지 않는다.

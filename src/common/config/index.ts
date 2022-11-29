@@ -21,10 +21,9 @@ const defaultItem: IModuleItem = {
 // Lazy 모듈 적용 기준
 export const lazyModuleStartIndex = 0;
 
-// 모듈 상태값
+// 모듈 상태값 (모듈 리스트 API 응답값에 상태 추가)
 export const moduleState = {
   _isRender: false,
-  _isLazyModule: true,
 };
 
 // 모듈 정보
