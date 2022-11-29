@@ -1,5 +1,6 @@
 import React, { useEffect, Suspense, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import Skeleton from 'react-loading-skeleton';
 
 import { moduleInfo, lazyModuleStartIndex } from '@src/common/config/index';
 import { HISTORY_ACTION_TYPE, NAVIGATION_TYPE, getNavigationType } from '@src/common/utils/history';
@@ -42,7 +43,7 @@ const Modules = React.forwardRef<any, any>((props: any, ref) => {
   // https://dirask.com/posts/React-how-to-create-dynamic-tag-name-jMm20j
   return (
     <>
-      {loading && 'API...'}
+      {loading && <Skeleton></Skeleton>}
       {!!moduleData?.length &&
         moduleData.map((item: any, index: number) => {
           const { code, type } = item;

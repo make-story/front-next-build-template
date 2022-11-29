@@ -3,6 +3,8 @@
  */
 import React, { ComponentType } from 'react';
 import dynamic from 'next/dynamic';
+import Skeleton from 'react-loading-skeleton';
+
 import ABC_3 from '@src/project/components/module/ABC_3';
 
 interface IModuleItem {
@@ -33,6 +35,7 @@ export const moduleInfo: IModuleInfo = {
     code: 'ABC_1',
     component: dynamic(() => import('@src/project/components/module/ABC_1'), {
       ssr: false,
+      loading: () => <Skeleton></Skeleton>,
       //suspense: true,
     }),
   },
@@ -41,6 +44,7 @@ export const moduleInfo: IModuleInfo = {
     code: 'ABC_2',
     component: dynamic(() => import('@src/project/components/module/ABC_2'), {
       ssr: false,
+      loading: () => <Skeleton></Skeleton>,
       //suspense: true,
     }),
   },

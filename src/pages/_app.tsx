@@ -10,6 +10,7 @@ import { useSelector, useStore } from 'react-redux';
 import { useEffect, useState } from 'react';
 
 //import './index.css'; // css
+import 'react-loading-skeleton/dist/skeleton.css';
 import { wrapper } from 'src/store';
 import { RootState } from 'src/rootReducer';
 
