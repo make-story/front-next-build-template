@@ -7,7 +7,7 @@ import axios from 'axios';
 // test
 export const fetchTest = (params: any = {}) => {
   return axios
-    .get('test', {
+    .get('/test', {
       params: {
         // 사용자 값
         ...params,
