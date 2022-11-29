@@ -18,15 +18,7 @@ export const DynamicModule = dynamic(() => Promise.resolve(Module), {
 // https://betterprogramming.pub/lazy-loading-in-next-js-simplified-435681afb18a
 // https://www.aleksandrhovhannisyan.com/blog/react-lazy-dynamic-imports/
 // https://helloinyong.tistory.com/323
-const LazyModule = ({
-  children,
-  position = 0,
-  code = '',
-}: {
-  children?: any;
-  position?: number;
-  code?: string;
-} = {}) => {
+const LazyModule = ({ children }: { children?: any } = {}) => {
   const dispatch = useDispatch();
   const [isIntersecting, setIsIntersecting] = useState(false);
   const ref = useRef(null);

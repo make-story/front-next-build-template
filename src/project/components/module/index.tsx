@@ -55,7 +55,7 @@ const Modules = React.forwardRef<any, any>((props: any, ref) => {
           return (
             <React.Fragment key={`module-${index}`}>
               {(isLazyModule && (
-                <LazyModule {...property}>
+                <LazyModule>
                   <Component {...property} />
                 </LazyModule>
               )) || <Component {...property} />}
