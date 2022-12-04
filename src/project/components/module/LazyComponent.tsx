@@ -2,7 +2,7 @@ import React, { ReactNode, ComponentType, useState, useRef, useEffect } from 're
 import dynamic from 'next/dynamic';
 import { useDispatch } from 'react-redux';
 
-import { moduleInfo, lazyModuleStartIndex } from '@src/common/config/index';
+import { moduleInfo, LazyComponentStartIndex } from '@src/common/config/index';
 import { moduleActionType, moduleActionCreator } from '@src/project/stores/module/action';
 
 /*
@@ -18,7 +18,7 @@ export const DynamicModule = dynamic(() => Promise.resolve(Module), {
 // https://betterprogramming.pub/lazy-loading-in-next-js-simplified-435681afb18a
 // https://www.aleksandrhovhannisyan.com/blog/react-lazy-dynamic-imports/
 // https://helloinyong.tistory.com/323
-const LazyModule = ({ children }: { children?: any } = {}) => {
+const LazyComponent = ({ children }: { children?: any } = {}) => {
   const dispatch = useDispatch();
   const [isIntersecting, setIsIntersecting] = useState(false);
   const ref = useRef(null);
@@ -47,4 +47,4 @@ const LazyModule = ({ children }: { children?: any } = {}) => {
   );
 };
 
-export default LazyModule;
+export default LazyComponent;
