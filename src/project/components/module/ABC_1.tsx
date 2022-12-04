@@ -8,12 +8,12 @@ const ABC_1 = () => {
   }, []);
 
   return (
-    <>
+    <div style={{ height: '100px', border: '1px solid' }}>
       ABC_1
-      <div>
+      <p>
         <a href={'//naver.com'}>네이버</a>
-      </div>
-    </>
+      </p>
+    </div>
   );
 };
 

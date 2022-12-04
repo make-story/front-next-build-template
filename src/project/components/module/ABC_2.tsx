@@ -7,7 +7,7 @@ const ABC_2 = () => {
     // 데이터 호출
   }, []);
 
-  return <>ABC_2</>;
+  return <div style={{ height: '100px', border: '1px solid' }}>ABC_2</div>;
 };
 
 export default withModule(ABC_2);
