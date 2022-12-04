@@ -31,13 +31,13 @@ export const moduleState = {
 };
 
 // https://stackoverflow.com/questions/62942727/dynamic-importing-of-an-unknown-component-nextjs
-/*export const getDynamicComponent = function (path: string) {
+export const getDynamicComponent = function (path: string) {
   return dynamic(() => import(`${path}`), {
     ssr: false,
     loading: () => <Skeleton></Skeleton>,
     //suspense: true,
   });
-};*/
+};
 
 // 모듈 정보
 // dynamic ssr 설정을 true 로 하더라도, LazyComponentStartIndex 설정값에 의해, SSR 되지 않는다.
@@ -47,6 +47,7 @@ export const moduleInfo: IModuleInfo = {
     ...defaultItem,
     code: 'ABC_1',
     path: '@src/project/components/module/ABC_1',
+    // path 정보만 있고, 아래 dynamic 기능은 별도 컴포넌트로 분리!!!!!!!
     component: dynamic(() => import('@src/project/components/module/ABC_1'), {
       //ssr: true,
       loading: () => <Skeleton></Skeleton>,
