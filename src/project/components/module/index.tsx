@@ -48,10 +48,13 @@ const Modules = React.forwardRef<any, any>((props: any, ref) => {
   return (
     <>
       {loading && <Skeleton></Skeleton>}
+      {/* CSR 테스트 */}
       <NonSSRWrapper>
         <ABC_4 />
       </NonSSRWrapper>
+      {/* SSR 테스트 */}
       <ABC_5 />
+      {/* 동적(API 데이터 의존) 컴포넌트 렌더 테스트 */}
       {!!moduleData?.length &&
         moduleData.map((item: any, index: number) => {
           const { code, type } = item;
@@ -60,7 +63,6 @@ const Modules = React.forwardRef<any, any>((props: any, ref) => {
           const Component: any = (moduleInfo[code]?.component || <></>) as keyof JSX.IntrinsicElements;
           const property = { position: index, code };
 
-          // LazyComponent 기능 및 isLazyComponent 설정값에 따라 컴포넌트가 그려지므로, SSR 작동안함
           // SSR 렌더 확인 방법 : 크롬 개발자 도구 > 네트워크탭 > 유형 '문서' HTML 'text/html' 반환값 확인
           return (
             <React.Fragment key={`module-${index}`}>

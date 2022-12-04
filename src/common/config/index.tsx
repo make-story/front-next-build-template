@@ -40,13 +40,15 @@ export const moduleState = {
 };*/
 
 // 모듈 정보
+// dynamic ssr 설정을 true 로 하더라도, LazyComponentStartIndex 설정값에 의해, SSR 되지 않는다.
+// SSR 렌더 확인 방법 : 크롬 개발자 도구 > 네트워크탭 > 유형 '문서' HTML 'text/html' 반환값 확인
 export const moduleInfo: IModuleInfo = {
   ABC_1: {
     ...defaultItem,
     code: 'ABC_1',
     path: '@src/project/components/module/ABC_1',
     component: dynamic(() => import('@src/project/components/module/ABC_1'), {
-      ssr: true,
+      //ssr: true,
       loading: () => <Skeleton></Skeleton>,
     }),
   },
@@ -55,7 +57,7 @@ export const moduleInfo: IModuleInfo = {
     code: 'ABC_2',
     path: '@src/project/components/module/ABC_2',
     component: dynamic(() => import('@src/project/components/module/ABC_2'), {
-      ssr: false,
+      //ssr: true,
       loading: () => <Skeleton></Skeleton>,
     }),
   },

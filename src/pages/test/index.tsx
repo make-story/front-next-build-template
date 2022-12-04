@@ -1,11 +1,14 @@
 import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
+import { END } from 'redux-saga';
 
-import { wrapper } from 'src/store';
+import Test from 'src/project/components/test';
+
+import { wrapper, SagaStore } from 'src/store';
 import { RootState } from 'src/rootReducer';
 import { testActionCreator } from 'src/project/stores/test/action';
-import Test from 'src/project/components/test';
+import { moduleActionType, moduleActionCreator } from '@src/project/stores/module/action';
 
 // 테스트 (IOS vh 이슈대응)
 if (typeof window !== 'undefined') {
@@ -51,7 +54,13 @@ export const getServerSideProps = wrapper.getServerSideProps(async context => {
   const { headers } = req;
 
   // dispatch (fetch, 데이터 호출)
-  // ...
+  store.dispatch(moduleActionCreator.fetchModuleTest());
+
+  // 호출하는 환경이 서버일 경우에는는 모든 sagaTask가 완료된 상태의 스토어를 주입시켜줘야 한다.
+  // https://hhyemi.github.io/2021/05/04/ssrprops.html
+  // https://okky.kr/articles/1042931
+  store.dispatch(END); // redux-saga 의 END 액션 이용하여 saga task 가 종료되도록 한다.
+  await (store as SagaStore).sagaTask?.toPromise(); // saga task 가 모두 종료되면 resolve 된다.
 
   // props (컴포넌트에 전달 값)
   return {
