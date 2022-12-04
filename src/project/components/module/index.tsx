@@ -21,8 +21,10 @@ const Modules = React.forwardRef<any, any>((props: any, ref) => {
   const { isBFCache, navigationType } = useHistoryState();
 
   useEffect(() => {
-    dispatch(moduleActionCreator.fetchModuleTest());
-  }, []);
+    if (Array.isArray(moduleData) && moduleData.length === 0) {
+      dispatch(moduleActionCreator.fetchModuleTest());
+    }
+  }, [dispatch, moduleData]);
 
   // navigation 상태
   useEffect(() => {
