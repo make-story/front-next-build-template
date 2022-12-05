@@ -42,6 +42,11 @@ const Modules = React.forwardRef<any, any>((props: any, ref) => {
     console.log('useHistoryState navigationType', navigationType);
   }, [navigationType]);
 
+  /*(async () => {
+    const Module = await import('./ABC_1');
+    console.log(Module);
+  })();*/
+
   // react component dynamic name
   // https://stackoverflow.com/questions/29875869/react-jsx-dynamic-component-name
   // https://medium.com/@Carmichaelize/dynamic-tag-names-in-react-and-jsx-17e366a684e9
@@ -66,6 +71,7 @@ const Modules = React.forwardRef<any, any>((props: any, ref) => {
           const property = { position: index, code };
 
           // SSR 렌더 확인 방법 : 크롬 개발자 도구 > 네트워크탭 > 유형 '문서' HTML 'text/html' 반환값 확인
+          // LazyComponent 하위 컴포넌트는 SSR 안됨
           return (
             <React.Fragment key={`module-${index}`}>
               {(isLazyComponent && (

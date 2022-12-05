@@ -31,13 +31,15 @@ export const moduleState = {
 };
 
 // https://stackoverflow.com/questions/62942727/dynamic-importing-of-an-unknown-component-nextjs
-export const getDynamicComponent = function (path: string) {
+// https://nextjs.org/docs/advanced-features/dynamic-import  공식 페이지(22년 12월 기준)에 따르면,
+// 컴포넌트 경로(path)는 템플릿 문자열이나 변수가 될 수 없습니다.
+/*export const getDynamicComponent = function (path: string) {
   return dynamic(() => import(`${path}`), {
     ssr: false,
     loading: () => <Skeleton></Skeleton>,
     //suspense: true,
   });
-};
+};*/
 
 // 모듈 정보
 // dynamic ssr 설정을 true 로 하더라도, LazyComponentStartIndex 설정값에 의해, SSR 되지 않는다.
@@ -58,7 +60,7 @@ export const moduleInfo: IModuleInfo = {
     code: 'ABC_2',
     path: '@src/project/components/module/ABC_2',
     component: dynamic(() => import('@src/project/components/module/ABC_2'), {
-      //ssr: true,
+      //ssr: false,
       loading: () => <Skeleton></Skeleton>,
     }),
   },
