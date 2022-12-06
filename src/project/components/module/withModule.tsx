@@ -4,9 +4,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import { moduleActionType, moduleActionCreator } from '@src/project/stores/module/action';
 
 export default function withModule<P extends { position: number; code: string; isLazyModule: boolean }>(
-  WrappedComponent: ComponentType<P>,
+  ModuleComponent: ComponentType<P>,
 ) {
-  return React.forwardRef<any, any>((props: ComponentProps<typeof WrappedComponent>, ref) => {
+  return React.forwardRef<any, any>((props: ComponentProps<typeof ModuleComponent>, ref) => {
     const { position, code, isLazyModule } = props;
     const dispatch = useDispatch();
 
@@ -18,7 +18,7 @@ export default function withModule<P extends { position: number; code: string; i
 
     return (
       <div ref={ref} data-module-code={code} data-module-position={position}>
-        <WrappedComponent {...props} />
+        <ModuleComponent {...props} />
       </div>
     );
   });

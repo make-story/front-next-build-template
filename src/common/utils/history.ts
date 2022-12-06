@@ -7,6 +7,7 @@
 import { eventDispatch } from './event';
 
 let isBFCache: boolean | null = null;
+const isSafari = /^((?!chrome|android).)*safari/i.test(window?.navigator?.userAgent || '');
 
 /**
  * 상태
@@ -17,11 +18,11 @@ export const HISTORY_ACTION_TYPE = {
   PAGE_HIDE: 'PAGE_HIDE',
 };
 export const NAVIGATION_TYPE = {
-  // window.performance.getEntriesByType('navigation') 반환값
+  // 주의! window.performance.getEntriesByType('navigation') 반환값과 동일해야함!
   NAVIGATE: 'navigate',
   RELOAD: 'reload',
   BACK_FORWARD: 'back_forward',
-  RELOAD_BF_CACHE: 'reload_bfcache',
+  RELOAD_BFCACHE: 'reload_bfcache',
   PRERENDER: 'prerender',
   NONE: '',
 };
@@ -144,16 +145,13 @@ if (typeof window !== 'undefined') {
   // pageshow
   window.addEventListener('pageshow', (event: PageTransitionEvent) => {
     console.log('history > pageshow', event);
+    console.log('history > pageshow BFCache', event.persisted);
     //console.log('referrer', document.referrer);
-    if (event.persisted) {
-      // BFCache 로 페이지 복원
-      isBFCache = true;
-    } else {
-      // BFCache 사용안함
-      isBFCache = false;
-    }
-    console.log('history > BFCache', isBFCache);
-    console.log('history > referrer', document?.referrer);
+
+    // event.persisted
+    // true : BFCache 로 페이지 복원
+    // false : BFCache 사용안함
+    isBFCache = event.persisted;
     eventDispatch(HISTORY_ACTION_TYPE.PAGE_SHOW, event);
     eventDispatch(HISTORY_ACTION_TYPE.BF_CACHE_STATE, isBFCache);
   });
@@ -164,23 +162,32 @@ if (typeof window !== 'undefined') {
   });*/
 
   // beforeunload
-  /*window.addEventListener('beforeunload', (event) => { // 취소 가능한 이벤트 (사용자 페이지 이탈을 막을 수 있음)
+  /*window.addEventListener('beforeunload', (event) => { // 브라우저 기본동작 취소가능 이벤트 (사용자 페이지 이탈을 막을 수 있음)
 		console.log('history > beforeunload', event);
   });*/
 
   // pagehide
   // unload (beforeunload 이벤트는 제외) 사용하지 않은 이유 : 브라우저는 페이지에 unload 이벤트 리스너가 추가되어 있는 경우, bfcache에 적합하지 않은 페이지로 판단하는 경우가 많다.
+  //let timeHistoryPageInterval: null | number = null;
   window.addEventListener('pagehide', (event: PageTransitionEvent) => {
     console.log('history > pagehide', event);
-    if (event.persisted === true) {
-      // 현재 페이지 BFCache 저장시도
-      //setHistoryBFCache(true);
-    } else {
-      // 현재 페이지 BFCache 로 저장하지 않음
-      //setHistoryBFCache(false);
-    }
+    console.log('history > pagehide BFCache', event.persisted);
+
+    // event.persisted
+    // true : 현재 페이지 BFCache 저장시도
+    // false : 현재 페이지 BFCache 로 저장하지 않음
     setHistoryBFCache(isBFCache);
     eventDispatch(HISTORY_ACTION_TYPE.PAGE_HIDE, event);
+
+    // 사파리에서는 BFCache 에 기존 JavaScript 코드가 실행되지 않는다.
+    /*if (isSafari) {
+      // 페이지 떠나기 전 인터벌 실행이 캐쉬되도록 한다. (BFCache 상태에서 setInterval 내부 코드 실행되도록 함)
+      timeHistoryPageInterval && window.clearInterval(timeHistoryPageInterval);
+      timeHistoryPageInterval = window.setInterval(() => {
+        console.log('safari history interval!!!!!');
+        //getNavigationType();
+      });
+    }*/
   });
 
   /**
@@ -239,8 +246,9 @@ export const getNavigationType = (): typeof NAVIGATION_TYPE[keyof typeof NAVIGAT
   }
 
   // BFCache, referrer 확인
-  if (['navigate', 'reload'].includes(type) && getHistoryBFCache()) {
-    type = NAVIGATION_TYPE.BACK_FORWARD; // 이전 BFCache 상태에서 페이지 새로고침 됨
+  if ([NAVIGATION_TYPE.NAVIGATE, NAVIGATION_TYPE.RELOAD].includes(type) && getHistoryBFCache()) {
+    // 이전 BFCache 상태에서 페이지 새로고침 됨
+    type = NAVIGATION_TYPE.RELOAD_BFCACHE;
   }
 
   return type;

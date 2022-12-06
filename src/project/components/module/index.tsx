@@ -5,7 +5,7 @@ import Skeleton from 'react-loading-skeleton';
 import { moduleInfo, LazyComponentStartIndex } from '@src/common/config/index';
 import { HISTORY_ACTION_TYPE, NAVIGATION_TYPE, getNavigationType } from '@src/common/utils/history';
 import { eventOn } from '@src/common/utils/event';
-import useHistoryState from '@src/common/hooks/useHistoryState';
+import useHistoryPageState from '@src/common/hooks/useHistoryPageState';
 import LazyComponent from './LazyComponent';
 import NonSSRWrapper from './NonSSRWrapper';
 import ABC_4 from './ABC_4';
@@ -18,7 +18,7 @@ const Modules = React.forwardRef<any, any>((props: any, ref) => {
   const dispatch = useDispatch();
   const loading = useSelector(({ loading }: RootState) => loading[moduleActionType.FETCH_MODULE_TEST]);
   const moduleData = useSelector(({ module }: RootState) => module.moduleData);
-  const { isBFCache, navigationType } = useHistoryState();
+  const { isBFCache, navigationType } = useHistoryPageState();
 
   useEffect(() => {
     if (Array.isArray(moduleData) && moduleData.length === 0) {
@@ -36,10 +36,10 @@ const Modules = React.forwardRef<any, any>((props: any, ref) => {
   }, []);
 
   useEffect(() => {
-    console.log('useHistoryState isBFCache', isBFCache);
+    console.log('useHistoryPageState isBFCache', isBFCache);
   }, [isBFCache]);
   useEffect(() => {
-    console.log('useHistoryState navigationType', navigationType);
+    console.log('useHistoryPageState navigationType', navigationType);
   }, [navigationType]);
 
   /*(async () => {
