@@ -20,12 +20,18 @@ https://github.com/redux-utilities/flux-standard-action
 const FETCH_MODULE_TEST = 'module/FETCH_MODULE_TEST';
 const FETCH_MODULE_TEST_SUCCESS = 'module/FETCH_MODULE_TEST_SUCCESS';
 const FETCH_MODULE_TEST_FAILURE = 'module/FETCH_MODULE_TEST_FAILURE';
+const FETCH_MODULE_CONTENT_TEST = 'module/FETCH_MODULE_CONTENT_TEST';
+const FETCH_MODULE_CONTENT_TEST_SUCCESS = 'module/FETCH_MODULE_CONTENT_TEST_SUCCESS';
+const FETCH_MODULE_CONTENT_TEST_FAILURE = 'module/FETCH_MODULE_CONTENT_TEST_FAILURE';
 const SET_RENDER_STATE = 'module/SET_RENDER_STATE';
 
 export const moduleActionType = {
   FETCH_MODULE_TEST,
   FETCH_MODULE_TEST_SUCCESS,
   FETCH_MODULE_TEST_FAILURE,
+  FETCH_MODULE_CONTENT_TEST,
+  FETCH_MODULE_CONTENT_TEST_SUCCESS,
+  FETCH_MODULE_CONTENT_TEST_FAILURE,
   SET_RENDER_STATE,
 };
 
@@ -34,6 +40,14 @@ const fetchModuleTest = (payload?: any) => {
   console.log('module > createAction > fetchModuleTest', payload);
   return {
     type: FETCH_MODULE_TEST,
+    payload, // 사용자 값
+  };
+};
+
+const fetchModuleContentTest = (payload?: any) => {
+  console.log('module > createAction > fetchModuleContentTest', payload);
+  return {
+    type: FETCH_MODULE_CONTENT_TEST,
     payload, // 사용자 값
   };
 };
@@ -48,5 +62,6 @@ const setRenderState = (payload?: any) => {
 
 export const moduleActionCreator = {
   fetchModuleTest,
+  fetchModuleContentTest,
   setRenderState,
 };

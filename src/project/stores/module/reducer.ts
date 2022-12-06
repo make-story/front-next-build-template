@@ -7,11 +7,13 @@ import { moduleActionType, moduleActionCreator } from './action';
 // 타입
 interface IState {
   moduleData: any;
+  moduleContentData: any;
 }
 
 // 초기 상태 값
 export const initialState = {
   moduleData: [],
+  moduleContentData: {},
 };
 
 // 리듀서 함수 - combineReducers 에 등록
@@ -32,6 +34,16 @@ export default function reducer(state: IState = initialState, action: AnyAction)
       });
     case moduleActionType.FETCH_MODULE_TEST_FAILURE:
       console.log('module > reducer > FETCH_MODULE_TEST_FAILURE', action);
+      return state;
+
+    // 테스트
+    case moduleActionType.FETCH_MODULE_CONTENT_TEST_SUCCESS:
+      console.log('module > reducer > FETCH_MODULE_CONTENT_TEST_SUCCESS', action);
+      return produce(state, (draft: { moduleContentData: any }) => {
+        draft.moduleContentData = payload;
+      });
+    case moduleActionType.FETCH_MODULE_CONTENT_TEST_FAILURE:
+      console.log('module > reducer > FETCH_MODULE_CONTENT_TEST_FAILURE', action);
       return state;
 
     // 렌더상태 변경

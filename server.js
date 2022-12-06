@@ -72,11 +72,15 @@ app.prepare().then(() => {
 
   // 더미데이터
   server.get('/dummy/*', (req, res) => {
-    const { params } = req;
+    const { params, query } = req;
     const filename = params[0] || '';
+    const isContent = /content\//.test(filename);
+
+    //console.log('params', params);
+    //console.log('query', query);
     if (fs.existsSync(path.join(__dirname, `./dummy/${filename}.json`))) {
       fs.readFile(path.join(__dirname, `./dummy/${filename}.json`), (error, buffer) => {
-        return res.json(JSON.parse(buffer));
+        return res.json({ ...JSON.parse(buffer), ...(isContent ? { time: new Date().getTime() } : {}) });
       });
     } else {
       return res.json({ error: filename });

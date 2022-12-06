@@ -29,3 +29,14 @@ export const fetchModuleTest1 = (params: any = {}) => {
     }
   });
 };
+export const fetchModuleContentTest1 = (params: any = {}) => {
+  return delay(randomNumberInRange(2000, 5000)).then(async () => {
+    try {
+      const { config, data, status } = await axios.get('/dummy/content/index');
+      return data;
+    } catch (error) {
+      throw error;
+      //return { error };
+    }
+  });
+};
