@@ -40,7 +40,7 @@ export default function reducer(state: IState = initialState, action: AnyAction)
     case moduleActionType.FETCH_MODULE_CONTENT_TEST_SUCCESS:
       console.log('module > reducer > FETCH_MODULE_CONTENT_TEST_SUCCESS', action);
       return produce(state, (draft: { moduleContentData: any }) => {
-        draft.moduleContentData = payload;
+        draft.moduleContentData[meta || 'test'] = payload;
       });
     case moduleActionType.FETCH_MODULE_CONTENT_TEST_FAILURE:
       console.log('module > reducer > FETCH_MODULE_CONTENT_TEST_FAILURE', action);
