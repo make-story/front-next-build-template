@@ -5,12 +5,13 @@ import withModule from './withModule';
 import { RootState } from '@src/rootReducer';
 import { moduleActionType, moduleActionCreator } from '@src/project/stores/module/action';
 
+const index = 1;
 const ABC_1 = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
     // 데이터 호출
-    dispatch(moduleActionCreator.fetchModuleContentTest(1));
+    dispatch(moduleActionCreator.fetchModuleContentTest(index));
   }, []);
 
   return (
