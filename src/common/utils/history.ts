@@ -7,7 +7,8 @@
 import { eventDispatch } from './event';
 
 let isBFCache: boolean | null = null;
-const isSafari = /^((?!chrome|android).)*safari/i.test(window?.navigator?.userAgent || '');
+const isSafari =
+  typeof window !== 'undefined' && /^((?!chrome|android).)*safari/i.test(window?.navigator?.userAgent || '');
 
 /**
  * 상태

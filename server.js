@@ -71,6 +71,8 @@ app.prepare().then(() => {
   });
 
   // 더미데이터
+  const delay = amount => new Promise((resolve, reject) => setTimeout(resolve, amount));
+  const randomNumberInRange = (min, max) => Math.random() * (max - min) + min;
   server.get('/dummy/*', (req, res) => {
     const { params, query } = req;
     const filename = params[0] || '';
@@ -80,7 +82,10 @@ app.prepare().then(() => {
     //console.log('query', query);
     if (fs.existsSync(path.join(__dirname, `./dummy/${filename}.json`))) {
       fs.readFile(path.join(__dirname, `./dummy/${filename}.json`), (error, buffer) => {
-        return res.json({ ...JSON.parse(buffer), ...(isContent ? { time: new Date().getTime() } : {}) });
+        // 응답이 바로 반환되지 않도록(실제 네트워크 지연이 발생하는 것 처럼) 딜레이 시간 준다.
+        delay(randomNumberInRange(2000, 5000))
+          .then(() => res.json({ ...JSON.parse(buffer), ...(isContent ? { time: new Date().getTime() } : {}) }))
+          .catch(() => res.json({ error: filename }));
       });
     } else {
       return res.json({ error: filename });

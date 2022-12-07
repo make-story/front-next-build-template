@@ -19,24 +19,18 @@ export const fetchModuleTest = (params: any = {}) => {
 
 // test
 export const fetchModuleTest1 = (params: any = {}) => {
-  return delay(randomNumberInRange(2000, 5000)).then(async () => {
-    try {
-      const { config, data, status } = await axios.get('/dummy/module/index');
-      return data;
-    } catch (error) {
+  return axios
+    .get('/dummy/module/index')
+    .then(({ config, data, status }) => data)
+    .catch(error => {
       throw error;
-      //return { error };
-    }
-  });
+    });
 };
 export const fetchModuleContentTest1 = (params: any = {}) => {
-  return delay(randomNumberInRange(2000, 5000)).then(async () => {
-    try {
-      const { config, data, status } = await axios.get('/dummy/content/index');
-      return data;
-    } catch (error) {
+  return axios
+    .get('/dummy/content/index')
+    .then(({ config, data, status }) => data)
+    .catch(error => {
       throw error;
-      //return { error };
-    }
-  });
+    });
 };

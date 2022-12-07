@@ -53,7 +53,7 @@ const createWrapperWithCommonLogic = () => {
   const getServerSideProps = (callback: Callback) => {
     return wrapper.getServerSideProps(async context => {
       const { store, req, res, params, query } = context;
-      console.log('getServerSideProps', Date.now());
+      console.log('store > getServerSideProps', Date.now());
 
       // axios
       // await preFetch(context); // 사전 데이터 호출(세팅) 부분
