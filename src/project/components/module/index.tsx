@@ -55,12 +55,15 @@ const Modules = React.forwardRef<any, any>((props: any, ref) => {
   return (
     <>
       {loading && <Skeleton></Skeleton>}
+
       {/* CSR 테스트 */}
       <NonSSRWrapper>
         <ABC_4 />
       </NonSSRWrapper>
+
       {/* SSR 테스트 */}
       <ABC_5 />
+
       {/* 동적(API 데이터 의존) 컴포넌트 렌더 테스트 */}
       {!!moduleData?.length &&
         moduleData.map((item: any, index: number) => {

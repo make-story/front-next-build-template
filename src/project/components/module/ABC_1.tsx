@@ -8,6 +8,7 @@ import { moduleActionType, moduleActionCreator } from '@src/project/stores/modul
 const index = 1;
 const ABC_1 = () => {
   const dispatch = useDispatch();
+  const moduleContentData = useSelector(({ module }: RootState) => module.moduleContentData[index]);
 
   useEffect(() => {
     // 데이터 호출
@@ -15,8 +16,12 @@ const ABC_1 = () => {
   }, []);
 
   return (
-    <div style={{ height: '100px', border: '1px solid' }}>
+    <div style={{ border: '1px solid' }}>
       ABC_1
+      <div>
+        <p>{index}</p>
+        {moduleContentData?.content?.test || '-'} {moduleContentData?.time || '-'}
+      </div>
       <p>
         <a href={'//naver.com'}>네이버</a>
       </p>

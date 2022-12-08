@@ -31,5 +31,5 @@ const fetchModuleContentTest = createRequestSaga(
 // Saga 미들웨어 - 액션타입 등록
 export function* watchModuleSaga() {
   yield takeLatest(moduleActionType.FETCH_MODULE_TEST, fetchModuleTest);
-  yield takeLatest(moduleActionType.FETCH_MODULE_CONTENT_TEST, fetchModuleContentTest);
+  yield takeEvery(moduleActionType.FETCH_MODULE_CONTENT_TEST, fetchModuleContentTest);
 }

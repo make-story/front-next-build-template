@@ -67,8 +67,11 @@ export const moduleInfo: IModuleInfo = {
   ABC_3: {
     ...defaultItem,
     code: 'ABC_3',
-    path: '@src/project/components/module/ABC_2',
-    component: ABC_3,
+    path: '@src/project/components/module/ABC_3',
+    component: dynamic(() => import('@src/project/components/module/ABC_3'), {
+      //ssr: false,
+      loading: () => <Skeleton></Skeleton>,
+    }),
   },
 };
 

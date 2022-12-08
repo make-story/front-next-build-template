@@ -73,6 +73,16 @@ app.prepare().then(() => {
   // 더미데이터
   const delay = amount => new Promise((resolve, reject) => setTimeout(resolve, amount));
   const randomNumberInRange = (min, max) => Math.random() * (max - min) + min;
+  const dateTime = (date = new Date()) => {
+    return {
+      year: date.getFullYear(),
+      month: `0${date.getMonth() + 1}`.slice(-2),
+      day: `0${date.getDate()}`.slice(-2),
+      hour: `0${date.getHours()}`.slice(-2),
+      minute: `0${date.getMinutes()}`.slice(-2),
+      second: `0${date.getSeconds()}`.slice(-2),
+    };
+  };
   server.get('/dummy/*', (req, res) => {
     const { params, query } = req;
     const filename = params[0] || '';
@@ -83,8 +93,14 @@ app.prepare().then(() => {
     if (fs.existsSync(path.join(__dirname, `./dummy/${filename}.json`))) {
       fs.readFile(path.join(__dirname, `./dummy/${filename}.json`), (error, buffer) => {
         // 응답이 바로 반환되지 않도록(실제 네트워크 지연이 발생하는 것 처럼) 딜레이 시간 준다.
+        const { year, month, day, ...time } = dateTime();
         delay(randomNumberInRange(2000, 5000))
-          .then(() => res.json({ ...JSON.parse(buffer), ...(isContent ? { time: new Date().getTime() } : {}) }))
+          .then(() =>
+            res.json({
+              ...JSON.parse(buffer),
+              ...(isContent ? { time: Object.values(time).join(':') } : {}),
+            }),
+          )
           .catch(() => res.json({ error: filename }));
       });
     } else {

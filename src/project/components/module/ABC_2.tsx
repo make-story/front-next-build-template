@@ -8,13 +8,22 @@ import { moduleActionType, moduleActionCreator } from '@src/project/stores/modul
 const index = 2;
 const ABC_2 = () => {
   const dispatch = useDispatch();
+  const moduleContentData = useSelector(({ module }: RootState) => module.moduleContentData[index]);
 
   useEffect(() => {
     // 데이터 호출
     dispatch(moduleActionCreator.fetchModuleContentTest(index));
   }, []);
 
-  return <div style={{ height: '100px', border: '1px solid' }}>ABC_2</div>;
+  return (
+    <div style={{ border: '1px solid' }}>
+      ABC_2
+      <div>
+        <p>{index}</p>
+        {moduleContentData?.content?.test || '-'} {moduleContentData?.time || '-'}
+      </div>
+    </div>
+  );
 };
 
 export default withModule(ABC_2);
