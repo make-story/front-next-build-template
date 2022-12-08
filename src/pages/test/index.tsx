@@ -62,7 +62,7 @@ export const getServerSideProps = wrapper.getServerSideProps(async context => {
   console.log('getServerSideProps > moduleData', store.getState()?.module?.moduleData);
   store.getState()?.module?.moduleData?.forEach(({ code }: any = {}) => {
     console.log('code', code);
-    moduleInfo?.[code]?.getServerSideProps(context);
+    moduleInfo?.[code]?.dispatch({ dispatch: store?.dispatch, query });
   });
 
   // 호출하는 환경이 서버일 경우에는는 모든 sagaTask가 완료된 상태의 스토어를 주입시켜줘야 한다.

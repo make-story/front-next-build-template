@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+import { moduleInfo } from '@src/common/config/index';
 import withModule from './withModule';
 import { RootState } from '@src/rootReducer';
 import { moduleActionType, moduleActionCreator } from '@src/project/stores/module/action';
@@ -12,7 +13,7 @@ const ABC_2 = () => {
 
   useEffect(() => {
     // 데이터 호출
-    dispatch(moduleActionCreator.fetchModuleContentTest(index));
+    moduleInfo?.['ABC_2']?.dispatch({ dispatch });
   }, []);
 
   return (

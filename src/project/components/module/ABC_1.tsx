@@ -12,7 +12,7 @@ const ABC_1 = () => {
 
   useEffect(() => {
     // 데이터 호출
-    dispatch(moduleActionCreator.fetchModuleContentTest(index));
+    //dispatch(moduleActionCreator.fetchModuleContentTest(index));
   }, []);
 
   return (

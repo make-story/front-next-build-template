@@ -2,7 +2,7 @@ import React, { ReactNode, ComponentType, useState, useRef, useEffect } from 're
 import dynamic from 'next/dynamic';
 import { useDispatch } from 'react-redux';
 
-import { moduleInfo, LazyComponentStartIndex } from '@src/common/config/index';
+import { moduleInfo, lazyComponentStartIndex } from '@src/common/config/index';
 import { moduleActionType, moduleActionCreator } from '@src/project/stores/module/action';
 
 /*

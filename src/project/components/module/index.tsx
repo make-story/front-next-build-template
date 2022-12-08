@@ -2,7 +2,7 @@ import React, { useEffect, Suspense, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Skeleton from 'react-loading-skeleton';
 
-import { moduleInfo, LazyComponentStartIndex } from '@src/common/config/index';
+import { moduleInfo, lazyComponentStartIndex } from '@src/common/config/index';
 import { HISTORY_ACTION_TYPE, NAVIGATION_TYPE, getNavigationType } from '@src/common/utils/history';
 import { eventOn } from '@src/common/utils/event';
 import useHistoryPageState from '@src/common/hooks/useHistoryPageState';
@@ -69,7 +69,7 @@ const Modules = React.forwardRef<any, any>((props: any, ref) => {
         moduleData.map((item: any, index: number) => {
           const { code, type } = item;
           const isLazyComponent =
-            navigationType !== NAVIGATION_TYPE.BACK_FORWARD && LazyComponentStartIndex <= index ? true : false;
+            navigationType !== NAVIGATION_TYPE.BACK_FORWARD && lazyComponentStartIndex <= index ? true : false;
           const Component: any = (moduleInfo[code]?.component || <></>) as keyof JSX.IntrinsicElements;
           const property = { position: index, code };
 
