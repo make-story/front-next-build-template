@@ -3,11 +3,13 @@ import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import { END } from 'redux-saga';
 
-import Test from 'src/project/components/test';
+import { fetchAndWaitStore } from '@src/common/utils/store';
+import Test from '@src/project/components/test';
+import { moduleInfo } from '@src/common/config/index';
 
-import { wrapper, SagaStore } from 'src/store';
-import { RootState } from 'src/rootReducer';
-import { testActionCreator } from 'src/project/stores/test/action';
+import { wrapper, SagaStore } from '@src/store';
+import { RootState } from '@src/rootReducer';
+import { testActionCreator } from '@src/project/stores/test/action';
 import { moduleActionType, moduleActionCreator } from '@src/project/stores/module/action';
 
 // 테스트 (IOS vh 이슈대응)
@@ -54,7 +56,14 @@ export const getServerSideProps = wrapper.getServerSideProps(async context => {
   const { headers } = req;
 
   // dispatch (fetch, 데이터 호출)
-  store.dispatch(moduleActionCreator.fetchModuleTest());
+  await fetchAndWaitStore(store, moduleActionCreator.fetchModuleTest());
+
+  // 상위 노출 모둘 getServerSideProps 실행
+  console.log('getServerSideProps > moduleData', store.getState()?.module?.moduleData);
+  store.getState()?.module?.moduleData?.forEach(({ code }: any = {}) => {
+    console.log('code', code);
+    moduleInfo?.[code]?.getServerSideProps(context);
+  });
 
   // 호출하는 환경이 서버일 경우에는는 모든 sagaTask가 완료된 상태의 스토어를 주입시켜줘야 한다.
   // https://hhyemi.github.io/2021/05/04/ssrprops.html

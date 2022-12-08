@@ -5,12 +5,14 @@ import React, { ComponentType } from 'react';
 import dynamic from 'next/dynamic';
 import Skeleton from 'react-loading-skeleton';
 
+import { RootContext } from '@src/common/utils/store';
 import ABC_3 from '@src/project/components/module/ABC_3';
 
 interface IModuleItem {
   code: string;
   path: string;
   component: any;
+  getServerSideProps: Function;
 }
 interface IModuleInfo {
   [key: string]: IModuleItem;
@@ -20,6 +22,7 @@ const defaultItem: IModuleItem = {
   code: '',
   path: '',
   component: null,
+  getServerSideProps: () => {},
 };
 
 // Lazy 모듈 적용 기준
@@ -54,6 +57,10 @@ export const moduleInfo: IModuleInfo = {
       //ssr: true,
       loading: () => <Skeleton></Skeleton>,
     }),
+    getServerSideProps: async (context: RootContext) => {
+      //
+      console.log('ABC_1 context!!!');
+    },
   },
   ABC_2: {
     ...defaultItem,
