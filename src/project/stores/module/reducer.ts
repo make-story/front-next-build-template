@@ -1,7 +1,7 @@
 import { AnyAction } from 'redux';
 import produce from 'immer';
 
-import { moduleState } from '@src/common/config/index';
+import { modulePrivateState } from '@src/common/config/index';
 import { moduleActionType, moduleActionCreator } from './action';
 
 // 타입
@@ -27,7 +27,7 @@ export default function reducer(state: IState = initialState, action: AnyAction)
       return produce(state, (draft: { moduleData: any }) => {
         draft.moduleData = payload?.components?.map((item: any, index: number) => {
           return {
-            ...moduleState,
+            ...modulePrivateState,
             ...(item || {}),
           };
         });
@@ -50,16 +50,33 @@ export default function reducer(state: IState = initialState, action: AnyAction)
     case moduleActionType.SET_RENDER_STATE:
       console.log('module > reducer > SET_RENDER_STATE', action);
       return produce(state, (draft: { moduleData: any }) => {
-        const { position, code, is } = payload || {};
-        const findValue = state.moduleData?.findIndex(
-          (item: any, index: number) => index === position && item?.code === code,
-        );
+        const { index, code, is } = payload || {};
+        //const findValue = state.moduleData?.findIndex((item: any, i: number) => i === index && item?.code === code);
+
         // 상태값 변경
-        if (0 <= findValue) {
+        if (0 <= index && state.moduleData?.[index]?.code === code) {
           const list = [...state.moduleData];
-          list[findValue] = {
-            ...list[findValue],
+          list[index] = {
+            ...list[index],
             _isRender: is,
+          };
+          draft.moduleData = list;
+        }
+      });
+
+    // content dispatch 호출 상태 변경
+    case moduleActionType.SET_CONTENT_DISPATCH_STATE:
+      console.log('module > reducer > SET_CONTENT_DISPATCH_STATE', action);
+      return produce(state, (draft: { moduleData: any }) => {
+        const { index, code, is } = payload || {};
+        //const findValue = state.moduleData?.findIndex((item: any, i: number) => i === index && item?.code === code);
+
+        // 상태값 변경
+        if (0 <= index && state.moduleData?.[index]?.code === code) {
+          const list = [...state.moduleData];
+          list[index] = {
+            ...list[index],
+            _isContentDispatch: is,
           };
           draft.moduleData = list;
         }

@@ -14,7 +14,7 @@ interface IModuleItem {
   component: any;
   dispatch: Function;
 }
-interface IModuleInfo {
+interface IModuleDefine {
   [key: string]: IModuleItem;
 }
 
@@ -25,18 +25,19 @@ const defaultItem: IModuleItem = {
   dispatch: () => {},
 };
 
-// Lazy 모듈 적용 기준
-export const lazyComponentStartIndex = 0;
-
 // 모듈 상태값 (모듈 리스트 API 응답값에 상태 추가)
-export const moduleState = {
+export const modulePrivateState = {
   _isRender: false,
+  _isContentDispatch: false,
 };
 
+// Lazy 모듈 적용 기준
+export const LAZY_MODULE_START_INDEX = 0;
+
 // 모듈 정보
-// dynamic ssr 설정을 true 로 하더라도, lazyComponentStartIndex 설정값에 의해, SSR 되지 않는다.
+// dynamic ssr 설정을 true 로 하더라도, LAZY_MODULE_START_INDEX 설정값에 의해, SSR 되지 않는다.
 // SSR 렌더 확인 방법 : 크롬 개발자 도구 > 네트워크탭 > 유형 '문서' HTML 'text/html' 반환값 확인
-export const moduleInfo: IModuleInfo = {
+export const MODULE_DEFINE: IModuleDefine = {
   ABC_1: {
     ...defaultItem,
     code: 'ABC_1',

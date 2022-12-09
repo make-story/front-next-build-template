@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import withModule from './withModule';
+import withModuleState from './withModuleState';
 import { RootState } from '@src/rootReducer';
 import { moduleActionType, moduleActionCreator } from '@src/project/stores/module/action';
 
@@ -12,7 +12,6 @@ const ABC_1 = () => {
 
   useEffect(() => {
     // 데이터 호출
-    //dispatch(moduleActionCreator.fetchModuleContentTest(index));
   }, []);
 
   return (
@@ -29,4 +28,4 @@ const ABC_1 = () => {
   );
 };
 
-export default withModule(ABC_1);
+export default withModuleState(ABC_1);

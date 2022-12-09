@@ -3,10 +3,10 @@ import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import { END } from 'redux-saga';
 
-import { lazyComponentStartIndex } from '@src/common/config/index';
+import { LAZY_MODULE_START_INDEX } from '@src/common/config/index';
 import { fetchAndWaitStore } from '@src/common/utils/store';
 import Test from '@src/project/components/test';
-import { moduleInfo } from '@src/common/config/index';
+import { MODULE_DEFINE } from '@src/common/config/index';
 
 import { wrapper, SagaStore } from '@src/store';
 import { RootState } from '@src/rootReducer';
@@ -61,9 +61,12 @@ export const getServerSideProps = wrapper.getServerSideProps(async context => {
 
   // 상위 노출 모둘 getServerSideProps 실행
   console.log('getServerSideProps > moduleData', store.getState()?.module?.moduleData);
-  for (let i = 0, state = store.getState(); i <= lazyComponentStartIndex; i++) {
-    const code = state?.module?.moduleData[i]?.code;
-    code && moduleInfo?.[code]?.dispatch({ dispatch: store?.dispatch, query });
+  for (let index = 0, state = store.getState(); index <= LAZY_MODULE_START_INDEX; index++) {
+    const code = state?.module?.moduleData[index]?.code;
+    if (code) {
+      MODULE_DEFINE?.[code]?.dispatch({ dispatch: store?.dispatch, query });
+      store.dispatch(moduleActionCreator.setContentDispatchState({ index, code, is: true }));
+    }
   }
 
   // 호출하는 환경이 서버일 경우에는는 모든 sagaTask가 완료된 상태의 스토어를 주입시켜줘야 한다.

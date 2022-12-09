@@ -24,6 +24,7 @@ const FETCH_MODULE_CONTENT_TEST = 'module/FETCH_MODULE_CONTENT_TEST';
 const FETCH_MODULE_CONTENT_TEST_SUCCESS = 'module/FETCH_MODULE_CONTENT_TEST_SUCCESS';
 const FETCH_MODULE_CONTENT_TEST_FAILURE = 'module/FETCH_MODULE_CONTENT_TEST_FAILURE';
 const SET_RENDER_STATE = 'module/SET_RENDER_STATE';
+const SET_CONTENT_DISPATCH_STATE = 'module/SET_CONTENT_DISPATCH_STATE';
 
 export const moduleActionType = {
   FETCH_MODULE_TEST,
@@ -33,6 +34,7 @@ export const moduleActionType = {
   FETCH_MODULE_CONTENT_TEST_SUCCESS,
   FETCH_MODULE_CONTENT_TEST_FAILURE,
   SET_RENDER_STATE,
+  SET_CONTENT_DISPATCH_STATE,
 };
 
 // 액션 생성 함수 - dispatch 로 해당 액션 실행을 위한 구조를 가지고 있음
@@ -60,8 +62,17 @@ const setRenderState = (payload?: any) => {
   };
 };
 
+const setContentDispatchState = (payload?: any) => {
+  console.log('module > createAction > setContentDispatchState', payload);
+  return {
+    type: SET_CONTENT_DISPATCH_STATE,
+    payload, // 사용자 값
+  };
+};
+
 export const moduleActionCreator = {
   fetchModuleTest,
   fetchModuleContentTest,
   setRenderState,
+  setContentDispatchState,
 };

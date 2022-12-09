@@ -2,7 +2,7 @@ import React, { useEffect, Suspense, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Skeleton from 'react-loading-skeleton';
 
-import { moduleInfo, lazyComponentStartIndex } from '@src/common/config/index';
+import { MODULE_DEFINE, LAZY_MODULE_START_INDEX } from '@src/common/config/index';
 import { HISTORY_ACTION_TYPE, NAVIGATION_TYPE, getNavigationType } from '@src/common/utils/history';
 import { eventOn } from '@src/common/utils/event';
 import useHistoryPageState from '@src/common/hooks/useHistoryPageState';
@@ -68,16 +68,16 @@ const Modules = React.forwardRef<any, any>((props: any, ref) => {
       {!!moduleData?.length &&
         moduleData.map((item: any, index: number) => {
           const { code, type } = item;
-          const isLazyComponent =
-            navigationType !== NAVIGATION_TYPE.BACK_FORWARD && lazyComponentStartIndex <= index ? true : false;
-          const Component: any = (moduleInfo[code]?.component || <></>) as keyof JSX.IntrinsicElements;
-          const property = { position: index, code };
+          const Component: any = (MODULE_DEFINE[code]?.component || <></>) as keyof JSX.IntrinsicElements;
+          const isLazy =
+            navigationType !== NAVIGATION_TYPE.BACK_FORWARD && LAZY_MODULE_START_INDEX < index ? true : false;
+          const property = { index, code };
 
           // SSR 렌더 확인 방법 : 크롬 개발자 도구 > 네트워크탭 > 유형 '문서' HTML 'text/html' 반환값 확인
           // LazyComponent 하위 컴포넌트는 SSR 안됨
           return (
             <React.Fragment key={`module-${index}`}>
-              {(isLazyComponent && (
+              {(isLazy && (
                 <LazyComponent>
                   <Component {...property} />
                 </LazyComponent>
