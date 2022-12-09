@@ -6,7 +6,7 @@ import { MODULE_DEFINE, LAZY_MODULE_START_INDEX } from '@src/common/config/index
 import { HISTORY_ACTION_TYPE, NAVIGATION_TYPE, getNavigationType } from '@src/common/utils/history';
 import { eventOn } from '@src/common/utils/event';
 import useHistoryPageState from '@src/common/hooks/useHistoryPageState';
-import LazyComponent from './LazyComponent';
+import ObserverWrapper from './ObserverWrapper';
 import NonSSRWrapper from './NonSSRWrapper';
 import ABC_4 from './ABC_4';
 import ABC_5 from './ABC_5';
@@ -66,13 +66,12 @@ const Modules = React.forwardRef<any, any>((props: any, ref) => {
           const property = { index, code };
 
           // SSR 렌더 확인 방법 : 크롬 개발자 도구 > 네트워크탭 > 유형 '문서' HTML 'text/html' 반환값 확인
-          // LazyComponent 하위 컴포넌트는 SSR 안됨
           return (
             <React.Fragment key={`module-${index}`}>
               {(isLazy && (
-                <LazyComponent>
+                <ObserverWrapper>
                   <Component {...property} />
-                </LazyComponent>
+                </ObserverWrapper>
               )) || <Component {...property} />}
             </React.Fragment>
           );
