@@ -26,7 +26,7 @@ const defaultItem: IModuleItem = {
 };
 
 // Lazy 모듈 적용 기준
-export const lazyComponentStartIndex = 1;
+export const lazyComponentStartIndex = 0;
 
 // 모듈 상태값 (모듈 리스트 API 응답값에 상태 추가)
 export const moduleState = {
@@ -54,7 +54,6 @@ export const moduleInfo: IModuleInfo = {
     path: '@src/project/components/module/ABC_1',
     // path 정보만 있고, 아래 dynamic 기능은 별도 컴포넌트로 분리!!!!!!!
     component: dynamic(() => import('@src/project/components/module/ABC_1'), {
-      //ssr: true,
       loading: () => <Skeleton></Skeleton>,
     }),
     dispatch: ({ dispatch, query, payload }: any = {}) => {
@@ -66,7 +65,6 @@ export const moduleInfo: IModuleInfo = {
     code: 'ABC_2',
     path: '@src/project/components/module/ABC_2',
     component: dynamic(() => import('@src/project/components/module/ABC_2'), {
-      //ssr: false,
       loading: () => <Skeleton></Skeleton>,
     }),
     dispatch: ({ dispatch, query, payload }: any = {}) => {
@@ -78,7 +76,6 @@ export const moduleInfo: IModuleInfo = {
     code: 'ABC_3',
     path: '@src/project/components/module/ABC_3',
     component: dynamic(() => import('@src/project/components/module/ABC_3'), {
-      //ssr: false,
       loading: () => <Skeleton></Skeleton>,
     }),
   },

@@ -13,7 +13,6 @@ const ABC_2 = () => {
 
   useEffect(() => {
     // 데이터 호출
-    moduleInfo?.['ABC_2']?.dispatch({ dispatch });
   }, []);
 
   return (

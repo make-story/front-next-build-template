@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import { END } from 'redux-saga';
 
+import { lazyComponentStartIndex } from '@src/common/config/index';
 import { fetchAndWaitStore } from '@src/common/utils/store';
 import Test from '@src/project/components/test';
 import { moduleInfo } from '@src/common/config/index';
@@ -60,10 +61,10 @@ export const getServerSideProps = wrapper.getServerSideProps(async context => {
 
   // 상위 노출 모둘 getServerSideProps 실행
   console.log('getServerSideProps > moduleData', store.getState()?.module?.moduleData);
-  store.getState()?.module?.moduleData?.forEach(({ code }: any = {}) => {
-    console.log('code', code);
-    moduleInfo?.[code]?.dispatch({ dispatch: store?.dispatch, query });
-  });
+  for (let i = 0, state = store.getState(); i <= lazyComponentStartIndex; i++) {
+    const code = state?.module?.moduleData[i]?.code;
+    code && moduleInfo?.[code]?.dispatch({ dispatch: store?.dispatch, query });
+  }
 
   // 호출하는 환경이 서버일 경우에는는 모든 sagaTask가 완료된 상태의 스토어를 주입시켜줘야 한다.
   // https://hhyemi.github.io/2021/05/04/ssrprops.html
