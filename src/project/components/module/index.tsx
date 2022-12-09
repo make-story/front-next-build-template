@@ -29,17 +29,17 @@ const Modules = React.forwardRef<any, any>((props: any, ref) => {
   // navigation 상태
   useEffect(() => {
     // 브라우저 접속 형태 확인
-    console.log('navigation', getNavigationType());
+    console.log('Modules > navigation', getNavigationType());
     eventOn(HISTORY_ACTION_TYPE.BF_CACHE_STATE, ({ detail }: any = {}) => {
-      console.log('BF_CACHE_STATE', detail);
+      console.log('Modules > eventOn BF_CACHE_STATE', detail);
     });
   }, []);
 
   useEffect(() => {
-    console.log('useHistoryPageState isBFCache', isBFCache);
+    console.log('Modules > useHistoryPageState isBFCache', isBFCache);
   }, [isBFCache]);
   useEffect(() => {
-    console.log('useHistoryPageState navigationType', navigationType);
+    console.log('Modules > useHistoryPageState navigationType', navigationType);
   }, [navigationType]);
 
   /*(async () => {
@@ -55,14 +55,6 @@ const Modules = React.forwardRef<any, any>((props: any, ref) => {
   return (
     <>
       {loading && <Skeleton></Skeleton>}
-
-      {/* CSR 테스트 */}
-      <NonSSRWrapper>
-        <ABC_4 />
-      </NonSSRWrapper>
-
-      {/* SSR 테스트 */}
-      <ABC_5 />
 
       {/* 동적(API 데이터 의존) 컴포넌트 렌더 테스트 */}
       {!!moduleData?.length &&
@@ -85,6 +77,14 @@ const Modules = React.forwardRef<any, any>((props: any, ref) => {
             </React.Fragment>
           );
         })}
+
+      {/* CSR 테스트 */}
+      <NonSSRWrapper>
+        <ABC_4 />
+      </NonSSRWrapper>
+
+      {/* SSR 테스트 */}
+      <ABC_5 />
     </>
   );
 });
