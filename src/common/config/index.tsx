@@ -33,17 +33,6 @@ export const moduleState = {
   _isRender: false,
 };
 
-// https://stackoverflow.com/questions/62942727/dynamic-importing-of-an-unknown-component-nextjs
-// https://nextjs.org/docs/advanced-features/dynamic-import  공식 페이지(22년 12월 기준)에 따르면,
-// 컴포넌트 경로(path)는 템플릿 문자열이나 변수가 될 수 없습니다.
-/*export const getDynamicComponent = function (path: string) {
-  return dynamic(() => import(`${path}`), {
-    ssr: false,
-    loading: () => <Skeleton></Skeleton>,
-    //suspense: true,
-  });
-};*/
-
 // 모듈 정보
 // dynamic ssr 설정을 true 로 하더라도, lazyComponentStartIndex 설정값에 의해, SSR 되지 않는다.
 // SSR 렌더 확인 방법 : 크롬 개발자 도구 > 네트워크탭 > 유형 '문서' HTML 'text/html' 반환값 확인
@@ -80,5 +69,16 @@ export const moduleInfo: IModuleInfo = {
     }),
   },
 };
+
+// https://stackoverflow.com/questions/62942727/dynamic-importing-of-an-unknown-component-nextjs
+// https://nextjs.org/docs/advanced-features/dynamic-import  공식 페이지(22년 12월 기준)에 따르면,
+// 컴포넌트 경로(path)는 템플릿 문자열이나 변수가 될 수 없습니다.
+/*export const getDynamicComponent = function (path: string) {
+  return dynamic(() => import(`${path}`), {
+    ssr: false,
+    loading: () => <Skeleton></Skeleton>,
+    //suspense: true,
+  });
+};*/
 
 export default {};
