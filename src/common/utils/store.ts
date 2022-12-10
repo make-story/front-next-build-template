@@ -16,12 +16,31 @@ export type RootContext = GetServerSidePropsContext & {
 export const fetchAndWaitStore = (store: Store, actionCreator: any, params = []) =>
   new Promise(resolve => {
     store.dispatch(actionCreator);
+    // subscribe : store에 변화가 일어날 때(state값이 변경될 때) 자동으로 실행됨(리스너).
+    // 반환값 : 변경 리스너를 구독 해지하는 함수.
     const unsubscribe = store.subscribe(() => {
       const state = store.getState();
       unsubscribe();
       return resolve(state);
     });
   });
+
+/**
+ * 리덕스 미들웨어
+ */
+/*const middleware = (store: any) => (dispatch: Dispatch<any>) => (action: any) => {
+  if (action.type === '비동기 작업') {
+    setTimeout(() => {
+      dispatch({
+        type: 'fetch-response',
+        payload: [1, 2, 3],
+      });
+    }, 2000);
+  } else {
+    dispatch(action);
+  }
+};*/
+//const store = createStore(reducer, [middleware]);
 
 /**
  * getServerSideProps 내 공통 실행 로직
