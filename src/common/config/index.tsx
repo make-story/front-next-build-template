@@ -33,6 +33,7 @@ export const modulePrivateState = {
 
 // Lazy 모듈 적용 기준
 export const LAZY_MODULE_START_INDEX = 0;
+export const FIRST_PAINT_MODULE = ['ABC_1'];
 
 // 모듈 정보
 // dynamic ssr 설정을 true 로 하더라도, LAZY_MODULE_START_INDEX 설정값에 의해, SSR 되지 않는다.

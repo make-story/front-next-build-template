@@ -54,7 +54,7 @@ export default function reducer(state: IState = initialState, action: AnyAction)
         //const findValue = state.moduleData?.findIndex((item: any, i: number) => i === index && item?.code === code);
 
         // 상태값 변경
-        if (0 <= index && state.moduleData?.[index]?.code === code) {
+        if (code && 0 <= index && state.moduleData?.[index]?.code === code) {
           const list = [...state.moduleData];
           list[index] = {
             ...list[index],
@@ -72,7 +72,7 @@ export default function reducer(state: IState = initialState, action: AnyAction)
         //const findValue = state.moduleData?.findIndex((item: any, i: number) => i === index && item?.code === code);
 
         // 상태값 변경
-        if (0 <= index && state.moduleData?.[index]?.code === code) {
+        if (code && 0 <= index && state.moduleData?.[index]?.code === code) {
           const list = [...state.moduleData];
           list[index] = {
             ...list[index],
