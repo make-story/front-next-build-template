@@ -33,20 +33,6 @@ export const fetchAndWaitStore = (store: Store, actionCreator: any, params = [])
  *   });
  * });
  */
-const setRedirect = (response: any, { url = '' }: any = {}) => {
-  // next js 리다이렉트
-  /*return {
-        redirect: {
-            permanent: false,
-            destination: '/store/empty',
-        },
-    };*/
-
-  // 일반 리다이렉트
-  response.statusCode = 302;
-  response.setHeader('Location', url);
-  response.end();
-};
 export const getServerSideWithCommonLogic = async (
   context: RootContext,
   { dispatch, callback }: { dispatch?: Dispatch<any>; callback: Function },
