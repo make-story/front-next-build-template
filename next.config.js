@@ -9,6 +9,12 @@ module.exports = {
   distDir: '_next',
   publicRuntimeConfig: {},
   serverRuntimeConfig: {},
+  // sass / scss
+  // $ npm install --save-dev sass
+  // https://nextjs.org/docs/basic-features/built-in-css-support#sass-support
+  sassOptions: {
+    includePaths: [path.join(__dirname, './src/style')],
+  },
   // 웹팩설정
   webpack: (config, { buildId, dev, isServer, defaultLoaders, nextRuntime, webpack }) => {
     //console.log('webpack mode', config.mode); // process.env.NODE_ENV 값에 따라 설정됨

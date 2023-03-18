@@ -11,6 +11,7 @@ import { useEffect, useState } from 'react';
 
 //import './index.css'; // css
 import 'react-loading-skeleton/dist/skeleton.css';
+import '../style/index.scss';
 import { wrapper } from 'src/store';
 import { RootState } from 'src/rootReducer';
 
