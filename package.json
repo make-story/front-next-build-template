@@ -8,12 +8,12 @@
     "doc": "./node_modules/.bin/jsdoc -c ./jsdoc/display.js",
     "dev": "cross-env NODE_ENV=${NODE_ENV:=development} PORT=80 PORT_SSL=443 node --inspect=9191 server.js",
     "build": "cross-env next build",
-    "start": "cross-env NODE_ENV=${NODE_ENV:=production} pm2 start server.js",
-    "start-test": "cross-env NODE_ENV=development next build && cross-env NODE_ENV=development pm2 start server.js",
-    "stop": "pm2 delete all",
+    "start-server": "cross-env NODE_ENV=${NODE_ENV:=production} pm2 start server.js --no-daemon",
+    "stop-server": "pm2 delete all",
+    "build-server": "cross-env NODE_ENV=development next build && cross-env NODE_ENV=development pm2 start server.js --no-daemon",
     "json-server": "json-server --watch ./mock/mock.json --routes ./mock/routes.json --port 4000 --delay 500",
-    "check-types": "tsc --noemit",
-    "lint": "npm run eslint && npm run check-types"
+    "check-type": "tsc --noemit",
+    "check-lint": "npm run eslint && npm run check-type"
   },
   "author": "",
   "license": "ISC",
