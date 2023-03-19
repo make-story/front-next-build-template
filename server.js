@@ -1,23 +1,20 @@
-const fs = require("fs");
-const path = require("path");
-const { createServer } = require("http");
-const https = require("https");
-const { parse } = require("url");
+const fs = require('fs');
+const path = require('path');
+const { createServer } = require('http');
+const https = require('https');
+const { parse } = require('url');
 
 const express = require('express');
 const next = require('next');
 const dotenv = require('dotenv');
 const cors = require('cors');
 const cookieParser = require('cookie-parser'); // req.cookies 객체
-const session = require('express-session'); // req.session 객체
+//const session = require('express-session'); // req.session 객체
 //const helmet = require('helmet'); // 웹 취약성으로부터 서버를 보호해주는 보안 모듈
 //const morgan = require('morgan'); // morgan 미들웨어는 요청과 응답에 대한 정보들을 콘솔에 기록
 //const moment = require('moment-timezone');
 //const AWSXRay = require('aws-xray-sdk');
 //const UAParser = require('ua-parser-js');
-
-const { createServer } = require('http');
-const { parse } = require('url');
 
 // env 설정
 const envPath = path.join(__dirname, `.envs/.env.${process.env.NODE_ENV}`);
@@ -161,8 +158,8 @@ app.prepare().then(() => {
         console.log(`> Ready on http://${hostname}:${port}`);
     });*/
 
-    // https (로컬에서만 설정)
-    /*if (dev) {
+  // https (로컬에서만 설정)
+  /*if (dev) {
       const portSSL = parseInt(process.env.PORT_SSL, 10) || 3443;
       const options = {
         key: fs.readFileSync('cert/localhost-key.pem'),
