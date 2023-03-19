@@ -1,18 +1,20 @@
+const fs = require("fs");
+const path = require("path");
+const { createServer } = require("http");
+const https = require("https");
+const { parse } = require("url");
+
 const express = require('express');
 const next = require('next');
-const helmet = require('helmet');
-const fs = require('fs');
-const morgan = require('morgan');
-const cookieParser = require('cookie-parser');
-const path = require('path');
 const dotenv = require('dotenv');
-const moment = require('moment-timezone');
-const http = require('http');
-const https = require('https');
-
 const cors = require('cors');
-const AWSXRay = require('aws-xray-sdk');
-const UAParser = require('ua-parser-js');
+const cookieParser = require('cookie-parser'); // req.cookies 객체
+const session = require('express-session'); // req.session 객체
+//const helmet = require('helmet'); // 웹 취약성으로부터 서버를 보호해주는 보안 모듈
+//const morgan = require('morgan'); // morgan 미들웨어는 요청과 응답에 대한 정보들을 콘솔에 기록
+//const moment = require('moment-timezone');
+//const AWSXRay = require('aws-xray-sdk');
+//const UAParser = require('ua-parser-js');
 
 const { createServer } = require('http');
 const { parse } = require('url');
@@ -46,9 +48,14 @@ app.prepare().then(() => {
   // express
   const server = express();
 
+  // https://expressjs.com/ko/resources/middleware.html
   server.use(cors(corsOptions)); // cors
+  //server.use(helmet());
+  //server.use(helmet.noCache());
+  //server.use(helmet.frameguard());
+  //server.use(morgan('dev'));
   server.use(express.json()); // json request body 파싱
-  server.use(express.urlencoded({ extended: true }));
+  server.use(express.urlencoded({ extended: true })); // body-parser
   server.use(cookieParser()); // process.env.COOKIE_SECRET
   server.use(express.static(path.join(__dirname, 'public'))); // public 정적 경로
   /*server.use('/', function (req, res, next) { // HTTP 호출 미들웨어 기능적 요소 주입 
@@ -127,30 +134,43 @@ app.prepare().then(() => {
     console.log(`> Ready on http://localhost:${port}`);
   });
   /*createServer(server).listen(port, err => {
-        if (err) throw err;
-        console.log(`> Ready on http://localhost:${port}`);
-    });*/
+    if (err) throw err;
+    console.log(`> Ready on http://localhost:${port}`);
+  });*/
   /*createServer(async (req, res) => {
-        try {
-        // Be sure to pass `true` as the second argument to `url.parse`.
-        // This tells it to parse the query portion of the URL.
-        const parsedUrl = parse(req.url, true);
-        const { pathname, query } = parsedUrl;
+    try {
+      // Be sure to pass `true` as the second argument to `url.parse`.
+      // This tells it to parse the query portion of the URL.
+      const parsedUrl = parse(req.url, true);
+      const { pathname, query } = parsedUrl;
 
-        if (pathname === '/a') {
-            await app.render(req, res, '/a', query);
-        } else if (pathname === '/b') {
-            await app.render(req, res, '/b', query);
-        } else {
-            await handle(req, res, parsedUrl);
-        }
-        } catch (err) {
-            console.error('Error occurred handling', req.url, err);
-            res.statusCode = 500;
-            res.end('internal server error');
-        }
+      if (pathname === '/a') {
+          await app.render(req, res, '/a', query);
+      } else if (pathname === '/b') {
+          await app.render(req, res, '/b', query);
+      } else {
+          await handle(req, res, parsedUrl);
+      }
+    } catch (err) {
+      console.error('Error occurred handling', req.url, err);
+      res.statusCode = 500;
+      res.end('internal server error');
+    }
     }).listen(port, (err) => {
         if (err) throw err;
         console.log(`> Ready on http://${hostname}:${port}`);
-    })*/
+    });*/
+
+    // https (로컬에서만 설정)
+    /*if (dev) {
+      const portSSL = parseInt(process.env.PORT_SSL, 10) || 3443;
+      const options = {
+        key: fs.readFileSync('cert/localhost-key.pem'),
+        cert: fs.readFileSync('cert/localhost.pem'),
+      };
+      https.createServer(options, server).listen(portSSL, err => {
+        if (err) throw err;
+        console.log(`> Ready on https://localhost:${portSSL}`);
+      });
+    }*/
 });
