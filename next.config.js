@@ -6,7 +6,16 @@ const isDev = process.env.NODE_ENV === 'development';
 
 module.exports = {
   //basePath: '/',
+  // 빌드 파일 결과물 경로 (기본값 .next 로 되어있을 경우, jenkins 등 CI/CD도구에서 일부 숨김파일로 인식)
   distDir: '_next',
+  /**
+   * https://nextjs.org/docs/api-reference/next.config.js/runtime-configuration
+   *
+   * import getConfig from "next/config";
+   * const { serverRuntimeConfig, publicRuntimeConfig } = getConfig();
+   *
+   * SSG(Static Site Generator)에서는 동작하지 않고 SSR(Server-Side Rendering)에서만 동작
+   */
   publicRuntimeConfig: {},
   serverRuntimeConfig: {},
   // sass / scss
