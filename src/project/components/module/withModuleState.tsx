@@ -1,3 +1,7 @@
+/**
+ * 각 모듈 컴포넌트 공통 HOC
+ * 컴포넌트 상태 관리 등 공통 기능 제어
+ */
 import React, { ComponentProps, ComponentType, useCallback, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Router, { useRouter } from 'next/router';
