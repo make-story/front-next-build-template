@@ -16,6 +16,11 @@ const cookieParser = require('cookie-parser'); // req.cookies 객체
 //const AWSXRay = require('aws-xray-sdk');
 //const UAParser = require('ua-parser-js');
 
+// node 예외처리
+process.on('uncaughtException', error => {
+  console.log('uncaughtException ', error);
+});
+
 // env 설정
 const envPath = path.join(__dirname, `.envs/.env.${process.env.NODE_ENV}`);
 if (fs.existsSync(envPath)) {
@@ -27,17 +32,6 @@ const dev = process.env.NODE_ENV !== 'production';
 const hostname = 'localhost';
 const port = process.env.PORT || 3000;
 
-// node 예외처리
-process.on('uncaughtException', error => {
-  console.log('uncaughtException ', error);
-});
-
-const corsOptions = {
-  origin: true,
-  credentials: true,
-  optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
-};
-
 // Next.js를 Express와 연결 - 같은 포트에서 실행
 const app = next({ dev, hostname, port });
 const handle = app.getRequestHandler();
@@ -46,6 +40,11 @@ app.prepare().then(() => {
   const server = express();
 
   // https://expressjs.com/ko/resources/middleware.html
+  const corsOptions = {
+    origin: true,
+    credentials: true,
+    optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+  };
   server.use(cors(corsOptions)); // cors
   //server.use(helmet());
   //server.use(helmet.noCache());
@@ -75,22 +74,23 @@ app.prepare().then(() => {
   });
 
   // 더미데이터
-  const delay = amount => new Promise((resolve, reject) => setTimeout(resolve, amount));
-  const randomNumberInRange = (min, max) => Math.random() * (max - min) + min;
-  const dateTime = (date = new Date()) => {
-    return {
-      year: date.getFullYear(),
-      month: `0${date.getMonth() + 1}`.slice(-2),
-      day: `0${date.getDate()}`.slice(-2),
-      hour: `0${date.getHours()}`.slice(-2),
-      minute: `0${date.getMinutes()}`.slice(-2),
-      second: `0${date.getSeconds()}`.slice(-2),
-    };
-  };
   server.get('/dummy/*', (req, res) => {
     const { params, query } = req;
     const filename = params[0] || '';
     const isContent = /content\//.test(filename);
+
+    const delay = amount => new Promise((resolve, reject) => setTimeout(resolve, amount));
+    const randomNumberInRange = (min, max) => Math.random() * (max - min) + min;
+    const dateTime = (date = new Date()) => {
+      return {
+        year: date.getFullYear(),
+        month: `0${date.getMonth() + 1}`.slice(-2),
+        day: `0${date.getDate()}`.slice(-2),
+        hour: `0${date.getHours()}`.slice(-2),
+        minute: `0${date.getMinutes()}`.slice(-2),
+        second: `0${date.getSeconds()}`.slice(-2),
+      };
+    };
 
     //console.log('params', params);
     //console.log('query', query);
